@@ -12,10 +12,6 @@
 
 ---
 
-## ⭐ Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=y3078266584/StealthLedger&type=Date)](https://star-history.com/#y3078266584/StealthLedger&Date)
-
 ## 📦 下载
 
 > 前往 [GitHub Releases](https://github.com/y3078266584/StealthLedger/releases) 下载最新 APK
@@ -123,6 +119,11 @@ cd android && gradlew assembleDebug
 ```
 StealthLedger/
 ├── src/                              # React 前端源码
+│   ├── constants/                    # 常量配置
+│   │   └── categories.js             # 商户名 → 消费分类映射
+│   ├── services/                     # 服务层（数据库、原生桥接）
+│   │   ├── db.js                     # IndexedDB 封装
+│   │   └── autoBilling.ts            # Capacitor 原生插件桥接
 │   ├── components/                   # UI 组件
 │   │   ├── Layout.jsx                # 布局（侧边栏 + 顶栏）
 │   │   ├── Dashboard.jsx             # 仪表板（统计卡片 + 图表）
@@ -135,15 +136,9 @@ StealthLedger/
 │   ├── hooks/                        # React Hooks
 │   │   └── useData.js                # 数据层桥接
 │   ├── utils/                        # 工具库
-│   │   ├── db.js                     # IndexedDB 封装
 │   │   └── parser.js                 # 支付文本解析 + CSV 解析
-│   ├── plugin/                       # Capacitor 插件接口
-│   │   └── autoBilling.ts            # 原生插件类型定义
-│   ├── assets/                       # 图片等静态资源
-│   ├── pages/                        # 页面（预留）
 │   ├── App.jsx                       # 主应用入口
-│   ├── App.css                       # 全局样式
-│   ├── index.css                     # Tailwind CSS 入口
+│   ├── index.css                     # Tailwind CSS + 全局样式
 │   └── main.jsx                      # Vite 入口
 ├── android/                          # Android 原生模块
 │   └── app/src/main/
@@ -230,6 +225,10 @@ Broadcast → TransactionReceiver 接收
 - [ ] 多账户支持
 
 ---
+
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=y3078266584/StealthLedger&type=Date)](https://star-history.com/#y3078266584/StealthLedger&Date)
 
 ## 📄 License
 

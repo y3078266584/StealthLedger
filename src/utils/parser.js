@@ -1,7 +1,7 @@
 ﻿// 自动捕获服务 - 多渠道自动记账
 // 支持: 剪贴板监听 / 支付宝微信CSV解析 / 通知文本解析
 
-import { add } from './db.js';
+import { add } from '../services/db.js';
 
 // 生成唯一ID
 export function generateId() {
