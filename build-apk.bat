@@ -24,17 +24,9 @@ for /f "tokens=1,2,3 delims=." %%a in ("!CUR_VERSION!") do (
     set PATCH=%%c
 )
 
-:: Special case: 1.0.0 → 1.1.0, otherwise increment patch
-if "!CUR_VERSION!"=="1.0.0" (
-    set NEW_MAJOR=1
-    set NEW_MINOR=1
-    set NEW_PATCH=0
-) else (
-    set /a NEW_PATCH=!PATCH!+1
-    set NEW_MAJOR=!MAJOR!
-    set NEW_MINOR=!MINOR!
-)
-set NEW_VERSION=!NEW_MAJOR!.!NEW_MINOR!.!NEW_PATCH!
+:: Always increment patch (last digit)
+set /a NEW_PATCH=!PATCH!+1
+set NEW_VERSION=!MAJOR!.!MINOR!.!NEW_PATCH!
 echo    新版本号: v!NEW_VERSION!
 
 :: Calculate versionCode (increment by 1)
