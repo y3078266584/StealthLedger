@@ -1,5 +1,5 @@
 ﻿import { useState, useEffect, useCallback } from 'react';
-import { getAll, add, put, remove, getByIndex } from '../utils/db.js';
+import { getAll, add, put, remove, getByIndex } from '../services/db.js';
 
 export function useTransactions() {
   const [transactions, setTransactions] = useState([]);

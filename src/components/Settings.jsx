@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Shield, Bell, Monitor, Download, Trash2, Smartphone, Zap, AlertTriangle, Power, Battery, RefreshCw, XCircle, CheckCircle, Clock } from 'lucide-react';
-import { getAll, remove } from '../utils/db.js';
-import AutoBilling from '../plugin/autoBilling.js';
+import { getAll, remove } from '../services/db.js';
+import AutoBilling from '../services/autoBilling.ts';
 
 const SERVICE_LABELS = {
   foregroundService: '后台保活服务',
