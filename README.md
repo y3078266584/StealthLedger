@@ -12,10 +12,6 @@
 
 ---
 
-## ⭐ Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=y3078266584/StealthLedger&type=Date)](https://star-history.com/#y3078266584/StealthLedger&Date)
-
 ## 📦 下载
 
 > 前往 [GitHub Releases](https://github.com/y3078266584/StealthLedger/releases) 下载最新 APK
@@ -229,6 +225,10 @@ Broadcast → TransactionReceiver 接收
 - [ ] 多账户支持
 
 ---
+
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=y3078266584/StealthLedger&type=Date)](https://star-history.com/#y3078266584/StealthLedger&Date)
 
 ## 📄 License
 
