@@ -99,7 +99,7 @@ npm run build
 
 ```bash
 # 方式一：一键构建
-build-apk.bat
+scripts\build-apk.bat
 
 # 方式二：手动构建
 npm run build
@@ -121,9 +121,9 @@ cd android && gradlew assembleDebug
 ## 📂 项目结构
 
 ```
-Billing APP/
+StealthLedger/
 ├── src/                              # React 前端源码
-│   ├── components/
+│   ├── components/                   # UI 组件
 │   │   ├── Layout.jsx                # 布局（侧边栏 + 顶栏）
 │   │   ├── Dashboard.jsx             # 仪表板（统计卡片 + 图表）
 │   │   ├── TransactionList.jsx       # 交易列表（搜索 / 筛选 / 批量操作）
@@ -132,32 +132,52 @@ Billing APP/
 │   │   ├── BudgetTracker.jsx         # 预算管理
 │   │   ├── ImportModal.jsx           # CSV 账单导入
 │   │   └── Settings.jsx              # 设置（服务状态 / 数据管理）
-│   ├── hooks/
-│   │   └── useData.js                # React Hooks（数据层桥接）
-│   ├── utils/
+│   ├── hooks/                        # React Hooks
+│   │   └── useData.js                # 数据层桥接
+│   ├── utils/                        # 工具库
 │   │   ├── db.js                     # IndexedDB 封装
 │   │   └── parser.js                 # 支付文本解析 + CSV 解析
-│   ├── plugin/
-│   │   └── autoBilling.ts            # Capacitor 原生插件接口
+│   ├── plugin/                       # Capacitor 插件接口
+│   │   └── autoBilling.ts            # 原生插件类型定义
+│   ├── assets/                       # 图片等静态资源
+│   ├── pages/                        # 页面（预留）
 │   ├── App.jsx                       # 主应用入口
+│   ├── App.css                       # 全局样式
+│   ├── index.css                     # Tailwind CSS 入口
 │   └── main.jsx                      # Vite 入口
 ├── android/                          # Android 原生模块
 │   └── app/src/main/
-│       ├── AndroidManifest.xml
-│       ├── java/com/autobilling/
-│       │   ├── service/
-│       │   │   └── BillingAccessibilityService.java
-│       │   └── receiver/
-│       │       └── TransactionReceiver.java
-│       └── res/
-│           ├── xml/accessibility_service_config.xml
-│           └── values/strings.xml
+│       ├── AndroidManifest.xml        # 权限与组件注册
+│       └── java/com/autobilling/
+│           ├── app/MainActivity.java  # 主 Activity
+│           ├── plugin/               # Capacitor 原生插件
+│           │   └── AutoBillingPlugin.java
+│           ├── service/              # 后台服务
+│           │   ├── BillingAccessibilityService.java  # 无障碍记账
+│           │   ├── BillingForegroundService.java     # 前台保活
+│           │   ├── BillingNotificationListener.java  # 通知栏监听
+│           │   └── ClipboardMonitor.java            # 剪贴板监听
+│           └── receiver/             # 广播接收器
+│               ├── BootReceiver.java          # 开机自启
+│               ├── KeepAliveReceiver.java     # 定时保活
+│               ├── ServiceRestarter.java      # JobScheduler 重启
+│               └── TransactionReceiver.java   # 交易数据接收
 ├── public/                           # 静态资源
-├── index.html
-├── vite.config.js
-├── package.json
-├── build-apk.bat                     # 一键构建脚本
-└── .gitignore
+├── scripts/                          # 构建脚本
+│   └── scripts\build-apk.bat                 # 一键构建 APK
+├── docs/                             # 文档
+│   └── communicating-history/        # 沟通记录
+├── release/                          # 构建产物（APK）
+│   ├── 影记-StealthLedger-v1.0.1.apk
+│   └── 影记-StealthLedger-v1.0.2.apk
+├── index.html                        # HTML 入口
+├── vite.config.js                    # Vite 配置
+├── capacitor.config.json             # Capacitor 配置
+├── package.json                      # 依赖与脚本
+├── eslint.config.js                  # ESLint 配置
+├── .gitignore                        # Git 忽略规则
+├── LICENSE                           # MIT 协议
+└── README.md                         # 项目说明
 ```
 
 ---

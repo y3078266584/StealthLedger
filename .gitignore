@@ -1,21 +1,23 @@
-# Dependencies
-node_modules
+﻿# Dependencies
+node_modules/
 .pnp
 .pnp.js
 
 # Build output
-dist
-dist-ssr
-build
+dist/
+dist-ssr/
+build/
+
+# APK artifacts (built files kept in release/)
 *.apk
 *.aab
 
 # Android
-android/build
-android/.gradle
-android/captures
-android/app/build
-android/app/release
+android/build/
+android/.gradle/
+android/captures/
+android/app/build/
+android/app/release/
 android/local.properties
 *.iml
 *.keystore
@@ -27,10 +29,10 @@ android/local.properties
 .env.*.local
 
 # IDE
-.vscode/*
+.vscode/
 !.vscode/extensions.json
 !.vscode/settings.json
-.idea
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
@@ -42,14 +44,17 @@ android/local.properties
 Thumbs.db
 desktop.ini
 
-# Logs
-logs
+# Logs & temp
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+
+# Patch files (debug artifacts)
+*.patch
 
 # Misc
 *.local

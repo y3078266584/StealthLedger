@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "build-apk": "build-apk.bat",
+    "build-apk": "scripts\\build-apk.bat",
     "cap-sync": "vite build && cap sync android"
   },
   "dependencies": {
