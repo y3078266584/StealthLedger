@@ -12,6 +12,21 @@
 
 ---
 
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=y3078266584/StealthLedger&type=Date)](https://star-history.com/#y3078266584/StealthLedger&Date)
+
+## 📦 下载
+
+> 前往 [GitHub Releases](https://github.com/y3078266584/StealthLedger/releases) 下载最新 APK
+
+| 版本 | 下载 |
+|------|------|
+| v1.0.2 | [⬇ APK](https://github.com/y3078266584/StealthLedger/releases/download/v1.0.2/-StealthLedger-v1.0.2.apk) |
+| v1.0.1 | [⬇ APK](https://github.com/y3078266584/StealthLedger/releases/download/v1.0.1/-StealthLedger-v1.0.1.apk) |
+
+---
+
 ## ✨ 核心功能
 
 ### 🔮 自动无感捕获
