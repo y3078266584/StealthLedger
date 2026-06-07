@@ -165,8 +165,6 @@ StealthLedger/
 ├── public/                           # 静态资源
 ├── scripts/                          # 构建脚本
 │   └── scripts\build-apk.bat                 # 一键构建 APK
-├── docs/                             # 文档
-│   └── communicating-history/        # 沟通记录
 ├── release/                          # 构建产物（APK）
 │   ├── 影记-StealthLedger-v1.0.1.apk
 │   └── 影记-StealthLedger-v1.0.2.apk
