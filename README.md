@@ -2,10 +2,13 @@
 
 > 支付宝 / 微信支付后自动无感记账 — 支付即记录，告别手动记账
 
-[![Version](https://img.shields.io/badge/version-1.0.1-blue)](package.json)
+[![GitHub Stars](https://img.shields.io/github/stars/y3078266584/StealthLedger?style=social&label=Star)](https://github.com/y3078266584/StealthLedger)
+[![GitHub Forks](https://img.shields.io/github/forks/y3078266584/StealthLedger?style=social&label=Fork)](https://github.com/y3078266584/StealthLedger)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue)](package.json)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite)](https://vitejs.dev)
+[![Android](https://img.shields.io/badge/Android-8%2B-34A853?logo=android)](https://developer.android.com)
 
 ---
 
