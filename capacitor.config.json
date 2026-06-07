@@ -1,0 +1,13 @@
+{
+    "appId":  "com.autobilling.app",
+    "appName": "影记",
+    "webDir":  "dist",
+    "server":  {
+                   "androidScheme":  "https"
+               },
+    "plugins":  {
+                    "AutoBilling":  {
+                                        "enabled":  true
+                                    }
+                }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">影记</string>
+    <string name="title_activity_main">影记</string>
+    <string name="accessibility_service_description">
+        影记需要无障碍服务权限，用于在您使用支付宝或微信完成付款后，自动识别支付成功页面上的金额和商户信息，帮您完成记账。\n\n
+        🔒 隐私承诺：\n
+        · 仅在支付成功页面出现时读取金额和商户名称\n
+        · 不会读取您的密码、验证码或任何其他敏感信息\n
+        · 所有数据仅存储在您的设备本地\n
+        · 不会上传任何数据到网络
+    </string>
+</resources>

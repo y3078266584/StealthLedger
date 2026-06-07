@@ -1,0 +1,21 @@
+﻿Begin Patch
+*** Update File: src/App.jsx
+@@ const handleChangeCategory = async (txId, newCatId) => {
+ const handleChangeCategory = async (txId, newCatId) => {
+   const tx = transactions.find(t => t.id === txId);
+   if (tx) {
+     await updateTransaction({ ...tx, category: newCatId });
+   }
+ };
++
++const handleChangeType = async (txId, newType) => {
++  const tx = transactions.find(t => t.id === txId);
++  if (tx && tx.type !== newType) {
++    await updateTransaction({ ...tx, type: newType });
++  }
++};
+@@         onChangeCategory={handleChangeCategory}
+-          onChangeCategory={handleChangeCategory}
++          onChangeCategory={handleChangeCategory}
++          onChangeType={handleChangeType}
+*** End Patch
