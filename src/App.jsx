@@ -23,6 +23,7 @@ function App() {
   const [autoCaptureEnabled, setAutoCaptureEnabled] = useState(false);
 
   const syncAutoCapturedTransactions = async () => {
+    const existingTx = await getAll("transactions");
     try {
       const result = await AutoBilling.getPendingTransactions();
       if (result.transactions && result.transactions.length > 0) {
