@@ -1,4 +1,4 @@
-﻿import { registerPlugin } from '@capacitor/core';
+import { registerPlugin } from '@capacitor/core';
 
 export interface AutoBillingPlugin {
   // Accessibility
@@ -16,6 +16,10 @@ export interface AutoBillingPlugin {
   // Battery Optimization
   isIgnoringBatteryOptimizations(): Promise<{ ignoring: boolean }>;
   requestIgnoreBatteryOptimizations(): Promise<void>;
+
+  // System Settings
+  openAppSystemSettings(): Promise<void>;
+  openAutoStartSettings(): Promise<void>;
 
   // Clipboard
   isClipboardMonitorActive(): Promise<{ active: boolean }>;

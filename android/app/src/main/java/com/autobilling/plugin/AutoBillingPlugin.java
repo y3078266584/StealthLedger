@@ -115,6 +115,93 @@ public class AutoBillingPlugin extends Plugin {
         call.resolve();
     }
 
+        // ===== System App Settings (Auto-start, Background, etc.) =====
+
+    @PluginMethod
+    public void openAppSystemSettings(PluginCall call) {
+        try {
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.parse("package:" + getContext().getPackageName()));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getContext().startActivity(intent);
+            call.resolve();
+        } catch (Exception e) {
+            call.reject("Failed to open: " + e.getMessage());
+        }
+    }
+
+    @PluginMethod
+    public void openAutoStartSettings(PluginCall call) {
+        try {
+            String manufacturer = android.os.Build.MANUFACTURER.toLowerCase();
+            Intent intent = null;
+
+            // Xiaomi / MIUI
+            if (manufacturer.contains("xiaomi")) {
+                intent = new Intent();
+                intent.setClassName("com.miui.securitycenter",
+                    "com.miui.permcenter.autostart.AutoStartManagementActivity");
+            }
+            // Huawei / EMUI
+            else if (manufacturer.contains("huawei") || manufacturer.contains("honor")) {
+                intent = new Intent();
+                intent.setClassName("com.huawei.systemmanager",
+                    "com.huawei.systemmanager.optimize.bootstart.BootStartActivity");
+            }
+            // OPPO / ColorOS
+            else if (manufacturer.contains("oppo")) {
+                intent = new Intent();
+                intent.setClassName("com.coloros.safecenter",
+                    "com.coloros.safecenter.permission.startup.StartupAppListActivity");
+            }
+            // VIVO / FuntouchOS
+            else if (manufacturer.contains("vivo")) {
+                intent = new Intent();
+                intent.setClassName("com.iqoo.secure",
+                    "com.iqoo.secure.ui.phoneoptimize.BootStartManageActivity");
+            }
+            // OnePlus
+            else if (manufacturer.contains("oneplus")) {
+                intent = new Intent();
+                intent.setClassName("com.oneplus.security",
+                    "com.oneplus.security.chainlaunch.view.ChainLaunchAppListActivity");
+            }
+            // Samsung
+            else if (manufacturer.contains("samsung")) {
+                intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.setData(Uri.parse("package:" + getContext().getPackageName()));
+            }
+            // Meizu
+            else if (manufacturer.contains("meizu")) {
+                intent = new Intent("com.meizu.safe.security.SHOW_APPSEC");
+                intent.putExtra("packageName", getContext().getPackageName());
+            }
+
+            if (intent != null) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getContext().startActivity(intent);
+            } else {
+                // Fallback: open system app settings
+                Intent fallback = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                fallback.setData(Uri.parse("package:" + getContext().getPackageName()));
+                fallback.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getContext().startActivity(fallback);
+            }
+            call.resolve();
+        } catch (Exception e) {
+            // Ultimate fallback
+            try {
+                Intent fallback = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                fallback.setData(Uri.parse("package:" + getContext().getPackageName()));
+                fallback.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getContext().startActivity(fallback);
+                call.resolve();
+            } catch (Exception e2) {
+                call.reject("Failed to open auto-start: " + e2.getMessage());
+            }
+        }
+    }
+
     // ===== Foreground Service =====
 
     @PluginMethod
