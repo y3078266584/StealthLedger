@@ -4,7 +4,7 @@
 React 19 SPA + Vite 8 + Tailwind CSS 4 → Android APK via Capacitor 8.
 Auto-captures payments via AccessibilityService / NotificationListener.
 
-**Current version: 1.0.3** (versionCode 4)
+**Current version: 1.1.0** (versionCode 5)
 
 ## Commands
 - 
