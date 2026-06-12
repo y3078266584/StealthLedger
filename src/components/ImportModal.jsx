@@ -1,4 +1,4 @@
-﻿import { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { Upload, FileText, X, Check, AlertCircle, Zap } from 'lucide-react';
 import { parseAlipayCSV, parseWechatCSV } from '../utils/parser.js';
 

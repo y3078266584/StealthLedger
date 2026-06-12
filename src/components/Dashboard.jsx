@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { TrendingDown, TrendingUp, Wallet, Calendar, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
 const ICON_MAP = {
@@ -18,25 +18,17 @@ export default function Dashboard({ transactions, categories, getCategoryById, b
     const todayTxs = transactions.filter((t) => t.date === today);
     const monthTxs = transactions.filter((t) => t.date.startsWith(currentMonth));
     const yearTxs = transactions.filter((t) => t.date.startsWith(currentYear));
-
     const todayExpense = todayTxs.filter((t) => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
     const todayIncome = todayTxs.filter((t) => t.type === 'income').reduce((s, t) => s + t.amount, 0);
     const monthExpense = monthTxs.filter((t) => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
     const monthIncome = monthTxs.filter((t) => t.type === 'income').reduce((s, t) => s + t.amount, 0);
     const yearExpense = yearTxs.filter((t) => t.type === 'expense').reduce((s, t) => s + t.amount, 0);
-
     const [y, m] = currentMonth.split('-').map(Number);
-    const lastMonth = m === 1
-      ? (y - 1) + '-12'
-      : y + '-' + String(m - 1).padStart(2, '0');
+    const lastMonth = m === 1 ? (y - 1) + '-12' : y + '-' + String(m - 1).padStart(2, '0');
     const lastMonthExpense = transactions
       .filter((t) => t.date.startsWith(lastMonth) && t.type === 'expense')
       .reduce((s, t) => s + t.amount, 0);
-
-    const monthChange = lastMonthExpense > 0
-      ? ((monthExpense - lastMonthExpense) / lastMonthExpense * 100)
-      : 0;
-
+    const monthChange = lastMonthExpense > 0 ? ((monthExpense - lastMonthExpense) / lastMonthExpense * 100) : 0;
     return { todayExpense, todayIncome, monthExpense, monthIncome, yearExpense, monthChange };
   }, [transactions, today, currentMonth, currentYear]);
 
@@ -44,7 +36,6 @@ export default function Dashboard({ transactions, categories, getCategoryById, b
     const days = [];
     const [y, m] = currentMonth.split('-').map(Number);
     const daysInMonth = new Date(y, m, 0).getDate();
-
     for (let d = 1; d <= daysInMonth; d++) {
       const date = currentMonth + '-' + String(d).padStart(2, '0');
       const total = transactions
@@ -72,10 +63,8 @@ export default function Dashboard({ transactions, categories, getCategoryById, b
 
   const budgetUsage = useMemo(() => {
     if (!budgets || budgets.length === 0) return [];
-
     const now = new Date();
     const curYm = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
-
     return budgets
       .filter((b) => b.period === 'monthly')
       .map((b) => {
@@ -84,12 +73,9 @@ export default function Dashboard({ transactions, categories, getCategoryById, b
           .reduce((s, t) => s + t.amount, 0);
         const cat = getCategoryById(b.categoryId);
         return {
-          ...b,
-          spent: Math.round(spent * 100) / 100,
+          ...b, spent: Math.round(spent * 100) / 100,
           percentage: b.amount > 0 ? Math.min(Math.round((spent / b.amount) * 100), 100) : 0,
-          catName: cat.name,
-          catIcon: ICON_MAP[cat.icon] || '📌',
-          catColor: cat.color,
+          catName: cat.name, catIcon: ICON_MAP[cat.icon] || '📌', catColor: cat.color,
         };
       })
       .sort((a, b) => b.percentage - a.percentage);
@@ -97,107 +83,112 @@ export default function Dashboard({ transactions, categories, getCategoryById, b
 
   const COLORS = ['#6366f1', '#f97316', '#3b82f6', '#ec4899', '#8b5cf6', '#14b8a6', '#eab308', '#ef4444', '#22c55e', '#64748b'];
 
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-white border border-slate-200 rounded-lg px-3 py-2 shadow-lg text-xs">
-          <span className="text-slate-500">{label}</span>
-          <span className="text-slate-800 font-semibold ml-2">¥{payload[0].value.toFixed(2)}</span>
-        </div>
-      );
-    }
-    return null;
-  };
+  const formatAmount = (n) => '¥' + n.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   return (
-    <div className="space-y-5">
-      {/* 统计卡片 */}
+    <div className="space-y-4 animate-fadeIn">
+      {/* Stat cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <StatCard
-          icon={<TrendingDown className="w-4 h-4" />}
+          icon={<Wallet className="w-4 h-4" />}
           label="今日支出"
-          value={'¥' + stats.todayExpense.toFixed(2)}
-          color="text-red-500"
-          bg="bg-red-50"
+          value={formatAmount(stats.todayExpense)}
+          color="text-indigo-600"
+          bg="bg-indigo-50"
         />
         <StatCard
           icon={<TrendingUp className="w-4 h-4" />}
           label="今日收入"
-          value={'¥' + stats.todayIncome.toFixed(2)}
-          color="text-green-500"
-          bg="bg-green-50"
+          value={formatAmount(stats.todayIncome)}
+          color="text-emerald-600"
+          bg="bg-emerald-50"
         />
         <StatCard
           icon={<Calendar className="w-4 h-4" />}
           label="本月支出"
-          value={'¥' + stats.monthExpense.toFixed(2)}
-          color="text-indigo-500"
+          value={formatAmount(stats.monthExpense)}
+          color="text-indigo-600"
           bg="bg-indigo-50"
           trend={stats.monthChange}
         />
         <StatCard
-          icon={<Wallet className="w-4 h-4" />}
-          label="本年支出"
-          value={'¥' + stats.yearExpense.toFixed(2)}
-          color="text-slate-600"
-          bg="bg-slate-50"
+          icon={<TrendingDown className="w-4 h-4" />}
+          label="年度支出"
+          value={formatAmount(stats.yearExpense)}
+          color="text-amber-600"
+          bg="bg-amber-50"
         />
       </div>
 
-      {/* 月度趋势图 */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-        <h3 className="text-sm font-semibold text-slate-700 mb-3">📊 本月每日支出趋势</h3>
-        <div className="h-52">
+      {/* Daily trend chart */}
+      <div className="glass-card rounded-2xl p-4">
+        <h3 className="text-sm font-semibold text-slate-700 mb-3">
+          本月每日支出
+          <span className="text-[10px] font-normal text-slate-400 ml-2">{currentMonth}</span>
+        </h3>
+        <div className="h-44">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={dailyTrend} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-              <XAxis dataKey="date" tick={{ fontSize: 10, fill: '#94a3b8' }} interval="preserveStartEnd" />
-              <YAxis tick={{ fontSize: 10, fill: '#94a3b8' }} />
-              <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="amount" fill="url(#barGradient)" radius={[6, 6, 0, 0]} maxBarSize={24} />
+            <BarChart data={dailyTrend} margin={{ top: 4, right: 4, bottom: 0, left: -16 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+              <XAxis dataKey="date" tick={{ fontSize: 10, fill: '#94a3b8' }} interval="preserveStartEnd" axisLine={false} tickLine={false} />
+              <YAxis tick={{ fontSize: 10, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
+              <Tooltip
+                content={({ active, payload, label }) =>
+                  active && payload?.length ? (
+                    <div className="bg-white border border-slate-200 rounded-xl px-3 py-2 shadow-lg text-xs">
+                      <span className="text-slate-500">{label}</span>
+                      <span className="text-slate-800 font-semibold ml-2">{formatAmount(payload[0].value)}</span>
+                    </div>
+                  ) : null
+                }
+              />
               <defs>
                 <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" stopColor="#6366f1" />
-                  <stop offset="100%" stopColor="#a78bfa" />
+                  <stop offset="100%" stopColor="#a78bfa" stopOpacity={0.6} />
                 </linearGradient>
               </defs>
+              <Bar dataKey="amount" fill="url(#barGradient)" radius={[6, 6, 0, 0]} maxBarSize={24} />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
 
-      {/* 分类饼图 + 预算 */}
+      {/* Pie chart + Budget */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-          <h3 className="text-sm font-semibold text-slate-700 mb-3">🍩 本月消费分类</h3>
+        <div className="glass-card rounded-2xl p-4">
+          <h3 className="text-sm font-semibold text-slate-700 mb-3">消费分类</h3>
           {categoryPie.length > 0 ? (
             <>
-              <div className="h-52">
+              <div className="h-48">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
                       data={categoryPie}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={50}
-                      outerRadius={75}
-                      paddingAngle={3}
-                      dataKey="value"
+                      cx="50%" cy="50%"
+                      innerRadius={44} outerRadius={68}
+                      paddingAngle={3} dataKey="value"
                     >
                       {categoryPie.map((entry, idx) => (
                         <Cell key={idx} fill={entry.color || COLORS[idx % COLORS.length]} />
                       ))}
                     </Pie>
-                    <Tooltip formatter={(value) => '¥' + value.toFixed(2)} />
+                    <Tooltip formatter={(value) => formatAmount(value)} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="space-y-1.5 mt-2">
+              <div className="space-y-2 mt-2">
                 {categoryPie.slice(0, 5).map((cat, idx) => (
                   <div key={idx} className="flex items-center gap-2 text-xs">
                     <span>{cat.icon}</span>
-                    <span className="text-slate-600 flex-1">{cat.name}</span>
-                    <span className="text-slate-400">¥{cat.value.toFixed(2)}</span>
+                    <div className="flex-1 flex items-center gap-2">
+                      <span className="text-slate-600">{cat.name}</span>
+                      <span
+                        className="w-1.5 h-1.5 rounded-full shrink-0"
+                        style={{ background: cat.color || COLORS[idx % COLORS.length] }}
+                      />
+                    </div>
+                    <span className="text-slate-400 font-medium">{formatAmount(cat.value)}</span>
                   </div>
                 ))}
               </div>
@@ -207,8 +198,8 @@ export default function Dashboard({ transactions, categories, getCategoryById, b
           )}
         </div>
 
-        <div className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-          <h3 className="text-sm font-semibold text-slate-700 mb-3">📋 预算使用情况</h3>
+        <div className="glass-card rounded-2xl p-4">
+          <h3 className="text-sm font-semibold text-slate-700 mb-3">预算进度</h3>
           {budgetUsage.length > 0 ? (
             <div className="space-y-4">
               {budgetUsage.map((b) => (
@@ -218,15 +209,19 @@ export default function Dashboard({ transactions, categories, getCategoryById, b
                       <span>{b.catIcon}</span>
                       <span className="text-slate-600 font-medium">{b.catName}</span>
                     </span>
-                    <span className={'font-semibold ' + (b.percentage >= 90 ? 'text-red-500' : b.percentage >= 70 ? 'text-amber-500' : 'text-slate-500')}>
-                      ¥{b.spent.toFixed(0)} / ¥{b.amount}
+                    <span className={'font-semibold tabular-nums ' + (
+                      b.percentage >= 90 ? 'text-danger' : b.percentage >= 70 ? 'text-warning' : 'text-slate-500'
+                    )}>
+                      {formatAmount(b.spent)} / {formatAmount(b.amount)}
                     </span>
                   </div>
-                  <div className="h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
                     <div
-                      className={'h-full rounded-full transition-all duration-500 ' +
-                        (b.percentage >= 90 ? 'bg-gradient-to-r from-red-500 to-rose-500' : b.percentage >= 70 ? 'bg-gradient-to-r from-amber-500 to-orange-500' : 'bg-gradient-to-r from-indigo-500 to-violet-500')
-                      }
+                      className={'h-full rounded-full transition-all duration-700 ease-out ' + (
+                        b.percentage >= 90 ? 'bg-gradient-to-r from-danger to-rose-500'
+                        : b.percentage >= 70 ? 'bg-gradient-to-r from-warning to-orange-400'
+                        : 'bg-gradient-to-r from-indigo-500 to-violet-500'
+                      )}
                       style={{ width: b.percentage + '%' }}
                     />
                   </div>
@@ -244,16 +239,17 @@ export default function Dashboard({ transactions, categories, getCategoryById, b
 
 function StatCard({ icon, label, value, color, bg, trend }) {
   return (
-    <div className="bg-white rounded-2xl p-3.5 shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-200">
-      <div className={'w-8 h-8 rounded-lg ' + bg + ' flex items-center justify-center mb-2'}>
+    <div className="glass-card glass-card-hover rounded-2xl p-4 animate-slideUp-sm">
+      <div className={'w-9 h-9 rounded-xl ' + bg + ' flex items-center justify-center mb-2.5'}>
         <span className={color}>{icon}</span>
       </div>
-      <p className="text-xs text-slate-400">{label}</p>
-      <p className={'text-base font-bold mt-0.5 ' + color}>{value}</p>
-      {trend !== undefined && (
-        <div className={'flex items-center gap-0.5 text-xs mt-1 ' + (trend >= 0 ? 'text-red-500' : 'text-green-500')}>
-          {trend >= 0 ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
-          <span>{Math.abs(trend).toFixed(1)}%</span>
+      <p className="text-[11px] text-slate-400 font-medium tracking-wide uppercase">{label}</p>
+      <p className={'text-lg font-bold mt-0.5 stat-number ' + color}>{value}</p>
+      {trend !== undefined && trend !== 0 && (
+        <div className={'flex items-center gap-0.5 text-xs mt-1.5 ' + (trend > 0 ? 'text-danger' : 'text-success')}>
+          {trend > 0 ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
+          <span className="font-medium">{Math.abs(trend).toFixed(1)}%</span>
+          <span className="text-slate-400 text-[10px] ml-0.5">vs 上月</span>
         </div>
       )}
     </div>

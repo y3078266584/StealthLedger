@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 
 const ICON_MAP = {
@@ -50,7 +50,7 @@ export default function BudgetTracker({ budgets, categories, onSetBudget, onDele
       </div>
 
       {showForm && (
-        <div className="bg-white rounded-2xl p-4 border border-slate-200 space-y-3">
+        <div className="glass-card rounded-2xl p-4 space-y-3">
           <div>
             <label className="text-xs text-slate-500 mb-1 block">分类</label>
             <select
@@ -96,7 +96,7 @@ export default function BudgetTracker({ budgets, categories, onSetBudget, onDele
         </div>
       )}
 
-      <div className="bg-white rounded-2xl p-4">
+      <div className="glass-card rounded-2xl p-4">
         {budgets.length === 0 ? (
           <div className="text-center py-8 text-slate-400 text-sm">
             <span className="text-3xl block mb-2">💰</span>

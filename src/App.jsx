@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import Layout from './components/Layout.jsx';
@@ -236,7 +236,7 @@ function App() {
   }
 
   return (
-    <Layout activePage={page} onNavigate={setPage}>
+    <Layout activePage={page} onNavigate={setPage} pageKey={page}>
       {page === 'dashboard' && (
         <Dashboard
           transactions={transactions}
@@ -292,7 +292,7 @@ function App() {
       {page !== 'categories' && page !== 'budget' && page !== 'settings' && (
         <button
           onClick={() => { setEditingTx(null); setShowForm(true); }}
-          className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-indigo-500 to-violet-500 hover:from-indigo-600 hover:to-violet-600 text-white
+          className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-indigo-500 to-violet-500 animate-slideUp-sm hover:from-indigo-600 hover:to-violet-600 text-white
             rounded-2xl shadow-lg shadow-indigo-200 flex items-center justify-center
             transition-all hover:scale-105 active:scale-95 z-40"
         >
