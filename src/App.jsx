@@ -28,6 +28,15 @@ function App() {
       const result = await AutoBilling.getPendingTransactions();
       if (result.transactions && result.transactions.length > 0) {
         for (const tx of result.transactions) {
+          const isDup = existingTx.some(function(e) {
+            return Math.abs(Number(e.amount) - Number(tx.amount)) < 0.01 &&
+              e.platform === tx.platform &&
+              e.date === tx.date &&
+              e.time && tx.time &&
+              e.time.substring(0, 5) === tx.time.substring(0, 5);
+          });
+          if (isDup) continue;
+
           const category = guessCategoryFromMerchant(tx.merchant);
           await add('transactions', {
             ...tx,
