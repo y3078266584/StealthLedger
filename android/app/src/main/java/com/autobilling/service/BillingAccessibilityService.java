@@ -402,7 +402,7 @@ public class BillingAccessibilityService extends AccessibilityService {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         info.date = sdf.format(new Date());
-        sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         info.time = sdf.format(new Date());
 
         return info;
@@ -425,6 +425,7 @@ public class BillingAccessibilityService extends AccessibilityService {
         bundle.putString("time", info.time);
         bundle.putString("platform", info.platform);
         bundle.putString("type", info.type);
+        bundle.putString("counterparty", info.counterparty);
         bundle.putString("source", "accessibility");
         intent.putExtra(EXTRA_TRANSACTION_DATA, bundle);
         sendBroadcast(intent);

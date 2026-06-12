@@ -21,7 +21,8 @@ public class TransactionReceiver extends BroadcastReceiver {
     private static final String DATA_FILE = "captured_transactions.json";
     private static final String DEDUP_PREFS = "tx_dedup";
     private static final int MAX_RECENT = 50;
-    private static final long DEDUP_WINDOW_MS = 30_000;
+    private static final long DEDUP_WINDOW_MS = 120_000;
+    private static final long SECONDARY_DEDUP_MS = 300_000;
     private static final int MAX_DEDUP_CACHE = 200;
 
     @Override
@@ -40,10 +41,12 @@ public class TransactionReceiver extends BroadcastReceiver {
         String platform = data.getString("platform", "");
         String source = data.getString("source", "");
         String type = data.getString("type", "expense");
+        String counterparty = data.getString("counterparty", "");
 
         if (amount <= 0) return;
 
-        String fingerprint = String.format("%.2f|%s|%s|%s", amount, merchant, date, platform);
+        String fingerprint = String.format("%.2f|%s|%s|%s|%s", amount, merchant, date, platform, source);
+        String simpleFingerprint = String.format("%.2f|%s_2nd", amount, platform);
 
         if (isDuplicateRecent(context, fingerprint)) {
             Log.d(TAG, "Skipping duplicate (recent): " + amount);
@@ -56,11 +59,15 @@ public class TransactionReceiver extends BroadcastReceiver {
             return;
         }
 
-        recordRecent(context, fingerprint);
+        recordRecent(context, simpleFingerprint);
+        if (isDuplicateRecent(context, simpleFingerprint)) {
+            Log.d(TAG, "Skipping secondary dup: " + amount);
+            return;
+        }
 
         Log.i(TAG, String.format("New: %s \u00a5%.2f [%s] via %s", merchant, amount, platform, source));
 
-        saveToFile(context, amount, merchant, date, time, platform, source);
+        saveToFile(context, amount, merchant, date, time, platform, source, type, counterparty);
     }
 
     private boolean isDuplicateRecent(Context context, String fingerprint) {
@@ -103,7 +110,7 @@ public class TransactionReceiver extends BroadcastReceiver {
             for (String entry : recentLines) {
                 try {
                     JSONObject tx = new JSONObject(entry);
-                    String entryFp = String.format("%.2f|%s|%s|%s",
+                    String entryFp = String.format("%.2f|%s|%s|%s|%s",
                         tx.optDouble("amount", 0),
                         tx.optString("merchant", ""),
                         tx.optString("date", ""),
@@ -120,7 +127,8 @@ public class TransactionReceiver extends BroadcastReceiver {
     }
 
     private void saveToFile(Context context, double amount, String merchant,
-                            String date, String time, String platform, String source) {
+                            String date, String time, String platform, String source,
+                            String type, String counterparty) {
         try {
             File file = new File(context.getFilesDir(), DATA_FILE);
 
@@ -135,6 +143,8 @@ public class TransactionReceiver extends BroadcastReceiver {
             tx.put("time", time);
             tx.put("platform", platform);
             tx.put("type", type);
+            tx.put("time_full", date + " " + time);
+            tx.put("counterparty", counterparty);
             tx.put("source", source != null && !source.isEmpty() ? source : "auto");
             tx.put("category", "other_expense");
             tx.put("note", "");

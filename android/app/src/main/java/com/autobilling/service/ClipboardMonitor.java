@@ -165,7 +165,7 @@ public class ClipboardMonitor {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         info.date = sdf.format(new Date());
-        sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         info.time = sdf.format(new Date());
 
         return info;
@@ -191,6 +191,7 @@ public class ClipboardMonitor {
         bundle.putString("time", info.time);
         bundle.putString("platform", info.platform);
         bundle.putString("type", info.type);
+        bundle.putString("counterparty", info.counterparty);
         bundle.putString("source", "clipboard");
         intent.putExtra("transaction_data", bundle);
         context.sendBroadcast(intent);
@@ -208,5 +209,6 @@ public class ClipboardMonitor {
         String time = "";
         String platform = "";
         String type = "expense";
+        String counterparty = "";
     }
 }

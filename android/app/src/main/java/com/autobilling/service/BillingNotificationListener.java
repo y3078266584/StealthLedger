@@ -1,38 +1,12 @@
 package com.autobilling.service;
+    private static final Pattern COUNTERPARTY_PATTERN = Pattern.compile(
+        "\u6536\u6b3e\u65b9[\uff1a:]\\s*(.+?)(?:\\s|\\u00a5|$)" +
+        "|\u6536\u6b3e\u4eba[\uff1a:]\\s*(.+?)(?:\\s|\\u00a5|$)" +
+        "|\u4ed8\u6b3e\u65b9[\uff1a:]\\s*(.+?)(?:\\s|\\u00a5|$)" +
+        "|\u8f6c\u51fa[\uff1a:]\\s*(.+?)(?:\\s|\\u00a5|$)" +
+        "|\u8f6c\u5165[\uff1a:]\\s*(.+?)(?:\\s|\\u00a5|$)");
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.service.notification.NotificationListenerService;
-import android.service.notification.StatusBarNotification;
-import android.util.Log;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-public class BillingNotificationListener extends NotificationListenerService {
-
-    private static final String TAG = "AutoBilling-Notif";
-
-    private static final String ALIPAY_PACKAGE = "com.eg.android.AlipayGphone";
-    private static final String WECHAT_PACKAGE = "com.tencent.mm";
-
-    // Expanded amount pattern
-    private static final Pattern AMOUNT_PATTERN = Pattern.compile(
-        "[\u00a5\uffe5]\\s*(\\d+\\.?\\d{0,2})" +
-        "|\u652f\u4ed8[\uff1a:]\\s*(\\d+\\.?\\d{0,2})" +
-        "|\u4ed8\u6b3e[\uff1a:]\\s*(\\d+\\.?\\d{0,2})" +
-        "|\u6263\u6b3e[\uff1a:]\\s*(\\d+\\.?\\d{0,2})" +
-        "|\u6d88\u8d39[\uff1a:]\\s*(\\d+\\.?\\d{0,2})" +
-        "|\u5b9e\u4ed8[\uff1a:\u00a5\uffe5 ]*\\s*(\\d+\\.?\\d{0,2})" +
-        "|\u8f6c\u8d26[\uff1a:]\\s*(\\d+\\.?\\d{0,2})" +
-        "|\u7ea2\u5305[\uff1a:]\\s*(\\d+\\.?\\d{0,2})" +
-        "|(\\d+\\.?\\d{0,2})\\s*\u5143"
-    );
-
-    private static final Pattern MERCHANT_PATTERN = Pattern.compile(
+private static final Pattern MERCHANT_PATTERN = Pattern.compile(
         "\u5546\u6237[\uff1a:]\\s*(.+?)(?:\\s|$)" +
         "|\u6536\u6b3e\u65b9[\uff1a:]\\s*(.+?)(?:\\s|$)" +
         "|\u5bf9\u65b9[\uff1a:]\\s*(.+?)(?:\\s|$)" +
@@ -227,6 +201,7 @@ public class BillingNotificationListener extends NotificationListenerService {
         bundle.putString("time", info.time);
         bundle.putString("platform", info.platform);
         bundle.putString("type", info.type);
+        bundle.putString("counterparty", info.counterparty);
         bundle.putString("source", "notification");
         intent.putExtra("transaction_data", bundle);
         sendBroadcast(intent);
@@ -239,5 +214,6 @@ public class BillingNotificationListener extends NotificationListenerService {
         String time = "";
         String platform = "";
         String type = "expense";
+        String counterparty = "";
     }
 }
