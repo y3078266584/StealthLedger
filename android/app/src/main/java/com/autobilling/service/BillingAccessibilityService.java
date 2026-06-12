@@ -202,12 +202,12 @@ public class BillingAccessibilityService extends AccessibilityService {
         }
 
         if (ALIPAY_PACKAGE.equals(packageName)) {
-            // 完成 button + amount (Alipay success often shows just 完成)
+            // 瀹屾垚 button + amount (Alipay success often shows just 瀹屾垚)
             if (containsAny(pageText, "\u5b8c\u6210") && hasVisibleAmount(pageText)) return true;
             // Payment receipt / detail page
             if (containsAny(pageText, "\u4ea4\u6613\u8be6\u60c5", "\u4ed8\u6b3e\u8be6\u60c5",
                 "\u8ba2\u5355\u8be6\u60c5") && hasVisibleAmount(pageText)) return true;
-            // Any Alipay page with ¥ amount + payment context
+            // Any Alipay page with 楼 amount + payment context
             if (hasVisibleAmount(pageText) && containsAny(pageText,
                 "\u652f\u4ed8\u5b9d", "\u4ed8\u6b3e", "\u6263\u6b3e")) return true;
         }
@@ -216,7 +216,7 @@ public class BillingAccessibilityService extends AccessibilityService {
             // Payment receipt / detail
             if (containsAny(pageText, "\u4ed8\u6b3e\u8be6\u60c5", "\u4ea4\u6613\u8be6\u60c5",
                 "\u5fae\u4fe1\u652f\u4ed8") && hasVisibleAmount(pageText)) return true;
-            // Any WeChat page with ¥ amount
+            // Any WeChat page with 楼 amount
             if (hasVisibleAmount(pageText) && containsAny(pageText, "\u5fae\u4fe1")) return true;
         }
 
@@ -324,6 +324,11 @@ public class BillingAccessibilityService extends AccessibilityService {
             "\u8d26\u5355\u660e\u7ec6", "\u6708\u8d26\u5355", "\u96f6\u94b1\u660e\u7ec6",
             "\u4ea4\u6613\u8bb0\u5f55", "\u8d26\u5355", "\u5386\u53f2\u8bb0\u5f55",
             "\u5168\u90e8\u8d26\u5355", "\u6d41\u6c34", "\u8d44\u91d1\u660e\u7ec6");
+    }
+
+    private boolean hasVisibleAmount(String text) {
+        return text.contains("\u00a5") || text.contains("\uffe5")
+            || java.util.regex.Pattern.compile("\\d+\\.\\d{2}").matcher(text).find();
     }
 
     private boolean containsAny(String text, String... keywords) {
@@ -439,5 +444,6 @@ public class BillingAccessibilityService extends AccessibilityService {
         String platform = "";
         String scenario = "";
         String type = "expense";
+        String counterparty = "";
     }
 }

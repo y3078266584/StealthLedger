@@ -1,4 +1,38 @@
 package com.autobilling.service;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.service.notification.NotificationListenerService;
+import android.service.notification.StatusBarNotification;
+import android.util.Log;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class BillingNotificationListener extends NotificationListenerService {
+
+    private static final String TAG = "AutoBilling-Notif";
+
+    private static final String ALIPAY_PACKAGE = "com.eg.android.AlipayGphone";
+    private static final String WECHAT_PACKAGE = "com.tencent.mm";
+
+    // Expanded amount pattern
+    private static final Pattern AMOUNT_PATTERN = Pattern.compile(
+        "[\u00a5\uffe5]\\s*(\\d+\\.?\\d{0,2})" +
+        "|\u652f\u4ed8[\uff1a:]\\s*(\\d+\\.?\\d{0,2})" +
+        "|\u4ed8\u6b3e[\uff1a:]\\s*(\\d+\\.?\\d{0,2})" +
+        "|\u6263\u6b3e[\uff1a:]\\s*(\\d+\\.?\\d{0,2})" +
+        "|\u6d88\u8d39[\uff1a:]\\s*(\\d+\\.?\\d{0,2})" +
+        "|\u5b9e\u4ed8[\uff1a:\u00a5\uffe5 ]*\\s*(\\d+\\.?\\d{0,2})" +
+        "|\u8f6c\u8d26[\uff1a:]\\s*(\\d+\\.?\\d{0,2})" +
+        "|\u7ea2\u5305[\uff1a:]\\s*(\\d+\\.?\\d{0,2})" +
+        "|(\\d+\\.?\\d{0,2})\\s*\u5143"
+    );
+
+    // 收款方/付款方/转出/转入 pattern for counterparty extraction
     private static final Pattern COUNTERPARTY_PATTERN = Pattern.compile(
         "\u6536\u6b3e\u65b9[\uff1a:]\\s*(.+?)(?:\\s|\\u00a5|$)" +
         "|\u6536\u6b3e\u4eba[\uff1a:]\\s*(.+?)(?:\\s|\\u00a5|$)" +
@@ -6,7 +40,7 @@ package com.autobilling.service;
         "|\u8f6c\u51fa[\uff1a:]\\s*(.+?)(?:\\s|\\u00a5|$)" +
         "|\u8f6c\u5165[\uff1a:]\\s*(.+?)(?:\\s|\\u00a5|$)");
 
-private static final Pattern MERCHANT_PATTERN = Pattern.compile(
+    private static final Pattern MERCHANT_PATTERN = Pattern.compile(
         "\u5546\u6237[\uff1a:]\\s*(.+?)(?:\\s|$)" +
         "|\u6536\u6b3e\u65b9[\uff1a:]\\s*(.+?)(?:\\s|$)" +
         "|\u5bf9\u65b9[\uff1a:]\\s*(.+?)(?:\\s|$)" +
@@ -16,7 +50,7 @@ private static final Pattern MERCHANT_PATTERN = Pattern.compile(
 
     private String lastAmount = "";
     private long lastCaptureTime = 0;
-    private static final long DEBOUNCE_MS = 10000; // Reduced from 15s to 10s
+    private static final long DEBOUNCE_MS = 10000;
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
@@ -85,10 +119,12 @@ private static final Pattern MERCHANT_PATTERN = Pattern.compile(
             return null;
         }
 
-        // Skip notifications that look like history/bill summaries
+        // Skip notifications that look like history/bill summaries or promos
         if (containsAny(text, "\u8d26\u5355", "\u4ea4\u6613\u8bb0\u5f55",
-            "\u6708\u8d26\u5355", "\u660e\u7ec6", \n            "\u9001\u4f60", "\u8d60\u9001", "\u4f18\u60e0", "\u514d\u8d39", \n            "\u798f\u5229", "\u8fd4\u73b0", "\u7b7e\u5230", "\u79ef\u5206", "\u6708\u652f\u51fa",
-            "\u6708\u6536\u5165", "\u5168\u90e8\u8d26\u5355")) {
+            "\u6708\u8d26\u5355", "\u660e\u7ec6",
+            "\u9001\u4f60", "\u8d60\u9001", "\u4f18\u60e0", "\u514d\u8d39",
+            "\u798f\u5229", "\u8fd4\u73b0", "\u7b7e\u5230", "\u79ef\u5206",
+            "\u6708\u652f\u51fa", "\u6708\u6536\u5165", "\u5168\u90e8\u8d26\u5355")) {
             return null;
         }
 
@@ -98,7 +134,8 @@ private static final Pattern MERCHANT_PATTERN = Pattern.compile(
             "\u7ea2\u5305", "\u5230\u8d26", "\u5df2\u6536\u5230",
             "\u5546\u6237\u626b\u7801", "\u5411\u4f60\u4ed8\u6b3e",
             "\u6536\u5230\u8f6c\u8d26", "\u5206\u671f", "\u82b1\u5457",
-            "\u4fe1\u7528\u5361\u8fd8\u6b3e", \n            "\u9000\u6b3e", "\u53d6\u6d88\u8ba2\u5355", "\u5df2\u53d6\u6d88")) {
+            "\u4fe1\u7528\u5361\u8fd8\u6b3e",
+            "\u9000\u6b3e", "\u53d6\u6d88\u8ba2\u5355", "\u5df2\u53d6\u6d88")) {
             return null;
         }
 
@@ -121,26 +158,25 @@ private static final Pattern MERCHANT_PATTERN = Pattern.compile(
         if (info.amount > 99999) return null;
 
         // Skip tiny amounts likely from leaked promos
-        if (info.amount < 0.5 && !containsAny(text, "支付", "付款", "扣款",
-            "消费", "转账", "商户扫码")) {
+        if (info.amount < 0.5 && !containsAny(text, "\u652f\u4ed8", "\u4ed8\u6b3e", "\u6263\u6b3e",
+            "\u6d88\u8d39", "\u8f6c\u8d26", "\u5546\u6237\u626b\u7801")) {
             return null;
         }
 
-        // Detect refund/cancellation → set as income
-        boolean isRefund = containsAny(text, "退款", "已退款",
-            "取消订单", "已取消", "退货",
-            "收到退款", "退回");
+        // Detect refund/cancellation -> set as income
+        boolean isRefund = containsAny(text, "\u9000\u6b3e", "\u5df2\u9000\u6b3e",
+            "\u53d6\u6d88\u8ba2\u5355", "\u5df2\u53d6\u6d88", "\u9000\u8d27",
+            "\u6536\u5230\u9000\u6b3e", "\u9000\u56de");
         if (isRefund) {
-            Log.d(TAG, "Refund: " + text);
+            Log.d(TAG, "Refund detected: " + text);
             info.type = "income";
         }
 
         // Detect incoming money (non-refund)
-        if (!isRefund && containsAny(text, "到账", "已收到",
-            "收到转账", "收款")) {
+        if (!isRefund && containsAny(text, "\u5230\u8d26", "\u5df2\u6536\u5230",
+            "\u6536\u5230\u8f6c\u8d26", "\u6536\u6b3e")) {
             info.type = "income";
         }
-
 
         Matcher merchantMatcher = MERCHANT_PATTERN.matcher(text);
         if (merchantMatcher.find()) {
@@ -153,31 +189,44 @@ private static final Pattern MERCHANT_PATTERN = Pattern.compile(
             }
         }
         if (info.merchant.isEmpty()) {
-            // Try to extract merchant from title (e.g., "支付宝 - 商家名称")
             info.merchant = guessMerchantFromTitle(text);
         }
+
+        // Extract counterparty (payee/payer)
+        try {
+            Matcher cpMatcher = COUNTERPARTY_PATTERN.matcher(text);
+            if (cpMatcher.find()) {
+                for (int j = 1; j <= cpMatcher.groupCount(); j++) {
+                    String g = cpMatcher.group(j);
+                    if (g != null && !g.isEmpty()) {
+                        info.counterparty = g.trim();
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.w(TAG, "Counterparty extraction failed", e);
+        }
+
         if (info.merchant.isEmpty()) {
-            info.merchant = isRefund ? "退款" : "unknown";
+            info.merchant = isRefund ? "\u9000\u6b3e" : "unknown";
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         info.date = sdf.format(new Date());
-        sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         info.time = sdf.format(new Date());
 
         return info;
     }
 
     private String guessMerchantFromTitle(String text) {
-        // Try to extract meaningful merchant info from the notification text
-        // Remove common prefixes/suffixes and keep the rest
         String cleaned = text
             .replaceAll("[\u00a5\uffe5]\\s*\\d+\\.?\\d{0,2}", "")
-            .replaceAll("\\d{4,}", "") // Remove long numbers
+            .replaceAll("\\d{4,}", "")
             .replaceAll("\u652f\u4ed8\u6210\u529f|\u5df2\u652f\u4ed8|\u4ed8\u6b3e\u6210\u529f", "")
             .trim();
 
-        // If remaining text is short enough, use as merchant
         if (cleaned.length() > 1 && cleaned.length() <= 30) {
             return cleaned;
         }

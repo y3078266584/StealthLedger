@@ -1,11 +1,11 @@
-# 📱 影记 StealthLedger
+# 馃摫 褰辫 StealthLedger
 
-> 支付即记录，告别手动记账 — Auto-track expenses from Alipay & WeChat Pay, no manual entry needed.
+> 鏀粯鍗宠褰曪紝鍛婂埆鎵嬪姩璁拌处 鈥?Auto-track expenses from Alipay & WeChat Pay, no manual entry needed.
 > Effortless expense tracking on Android.
 
 [![GitHub Stars](https://img.shields.io/github/stars/y3078266584/StealthLedger?style=social&label=Star)](https://github.com/y3078266584/StealthLedger)
 [![GitHub Forks](https://img.shields.io/github/forks/y3078266584/StealthLedger?style=social&label=Fork)](https://github.com/y3078266584/StealthLedger)
-[![Version](https://img.shields.io/badge/version-1.0.2-blue)](package.json)
+[![Version](https://img.shields.io/badge/version-1.0.3-blue)](package.json)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite)](https://vitejs.dev)
@@ -13,238 +13,225 @@
 
 ---
 
-## 📦 下载 / Download
+## 馃摝 涓嬭浇 / Download
 
-> [⬇ 下载最新版 v1.0.2 APK](https://github.com/y3078266584/StealthLedger/releases/download/v1.0.2/-StealthLedger-v1.0.2.apk)
-> [⬇ Download latest v1.0.2 APK](https://github.com/y3078266584/StealthLedger/releases/download/v1.0.2/-StealthLedger-v1.0.2.apk)
+> [猬?涓嬭浇鏈€鏂扮増 v1.0.3 APK](https://github.com/y3078266584/StealthLedger/releases/download/v1.0.2/-StealthLedger-v1.0.2.apk)
+> [猬?Download latest v1.0.2 APK](https://github.com/y3078266584/StealthLedger/releases/download/v1.0.2/-StealthLedger-v1.0.2.apk)
 >
-> 历史版本请前往 [Releases](https://github.com/y3078266584/StealthLedger/releases) 页面下载。
-> For older versions, visit the [Releases](https://github.com/y3078266584/StealthLedger/releases) page.
+> 鍘嗗彶鐗堟湰璇峰墠寰€ [Releases](https://github.com/y3078266584/StealthLedger/releases) 椤甸潰涓嬭浇銆?> For older versions, visit the [Releases](https://github.com/y3078266584/StealthLedger/releases) page.
 
 ---
 
-## ✨ 核心功能 / Features
+## 鉁?鏍稿績鍔熻兘 / Features
 
-### 🔮 自动无感捕获 / Auto Capture
-- **Android 无障碍服务 / Accessibility Service** — 支付成功后自动识别屏幕上的金额与商户，静默完成记账
-  *Auto-detect amounts & merchants on payment success screens, silently log transactions.*
-- **通知栏监听 / Notification Listener** — 解析支付宝/微信支付通知，提取金额信息
-  *Parse Alipay & WeChat Pay notifications to extract payment data.*
-- **剪贴板监听 / Clipboard Monitor** — Web 端复制支付信息即可自动识别
-  *Copy payment info on web and it's recognized automatically.*
-- **智能分类 / Smart Categorization** — 根据商户名称自动匹配消费类别
+### 馃敭 鑷姩鏃犳劅鎹曡幏 / Auto Capture
+- **Android 鏃犻殰纰嶆湇鍔?/ Accessibility Service** 鈥?鏀粯鎴愬姛鍚庤嚜鍔ㄨ瘑鍒睆骞曚笂鐨勯噾棰濅笌鍟嗘埛锛岄潤榛樺畬鎴愯璐?  *Auto-detect amounts & merchants on payment success screens, silently log transactions.*
+- **閫氱煡鏍忕洃鍚?/ Notification Listener** 鈥?瑙ｆ瀽鏀粯瀹?寰俊鏀粯閫氱煡锛屾彁鍙栭噾棰濅俊鎭?  *Parse Alipay & WeChat Pay notifications to extract payment data.*
+- **鍓创鏉跨洃鍚?/ Clipboard Monitor** 鈥?Web 绔鍒舵敮浠樹俊鎭嵆鍙嚜鍔ㄨ瘑鍒?  *Copy payment info on web and it's recognized automatically.*
+- **鏅鸿兘鍒嗙被 / Smart Categorization** 鈥?鏍规嵁鍟嗘埛鍚嶇О鑷姩鍖归厤娑堣垂绫诲埆
   *Auto-match categories by merchant name.*
 
-### 📊 记账管理 / Transaction Management
-- 手动添加 / 编辑 / 删除交易记录 — *Add, edit, delete transactions manually*
-- **批量选择删除 / Batch Delete** — 多选交易一键清理 — *Select multiple & delete in one tap*
-- **平台标记 / Platform Tags** — 支持标记支付平台（支付宝 / 微信 / 手动），编辑时可修改 — *Tag by platform (Alipay / WeChat / Manual)*
-- 13 种默认智能分类 + 自定义分类（图标 + 颜色）— *13 default categories + custom (icon & color)*
-- 多维度筛选：关键词搜索、日期、类型、分类 — *Multi-filter: keyword, date, type, category*
+### 馃搳 璁拌处绠＄悊 / Transaction Management
+- 鎵嬪姩娣诲姞 / 缂栬緫 / 鍒犻櫎浜ゆ槗璁板綍 鈥?*Add, edit, delete transactions manually*
+- **鎵归噺閫夋嫨鍒犻櫎 / Batch Delete** 鈥?澶氶€変氦鏄撲竴閿竻鐞?鈥?*Select multiple & delete in one tap*
+- **骞冲彴鏍囪 / Platform Tags** 鈥?鏀寔鏍囪鏀粯骞冲彴锛堟敮浠樺疂 / 寰俊 / 鎵嬪姩锛夛紝缂栬緫鏃跺彲淇敼 鈥?*Tag by platform (Alipay / WeChat / Manual)*
+- 13 绉嶉粯璁ゆ櫤鑳藉垎绫?+ 鑷畾涔夊垎绫伙紙鍥炬爣 + 棰滆壊锛夆€?*13 default categories + custom (icon & color)*
+- 澶氱淮搴︾瓫閫夛細鍏抽敭璇嶆悳绱€佹棩鏈熴€佺被鍨嬨€佸垎绫?鈥?*Multi-filter: keyword, date, type, category*
 
-### 📈 数据可视化 / Data Visualization
-- 仪表板统计卡片（今日 / 本月 / 年度收支）— *Dashboard cards: Today / Month / Year*
-- 月度每日支出趋势图（渐变色柱状图）— *Monthly daily expense bar chart (gradient)*
-- 消费分类占比（环形饼图）— *Category breakdown (donut chart)*
-- 预算进度跟踪（渐变色进度条 + 超支预警）— *Budget tracker with overspend warning*
-- 环比变化百分比 — *Period-over-period percentage change*
+### 馃搱 鏁版嵁鍙鍖?/ Data Visualization
+- 浠〃鏉跨粺璁″崱鐗囷紙浠婃棩 / 鏈湀 / 骞村害鏀舵敮锛夆€?*Dashboard cards: Today / Month / Year*
+- 鏈堝害姣忔棩鏀嚭瓒嬪娍鍥撅紙娓愬彉鑹叉煴鐘跺浘锛夆€?*Monthly daily expense bar chart (gradient)*
+- 娑堣垂鍒嗙被鍗犳瘮锛堢幆褰㈤ゼ鍥撅級鈥?*Category breakdown (donut chart)*
+- 棰勭畻杩涘害璺熻釜锛堟笎鍙樿壊杩涘害鏉?+ 瓒呮敮棰勮锛夆€?*Budget tracker with overspend warning*
+- 鐜瘮鍙樺寲鐧惧垎姣?鈥?*Period-over-period percentage change*
 
-### 💾 数据管理 / Data Management
-- 全部数据本地存储（IndexedDB），**零网络依赖** — *100% local storage, zero network*
-- **Excel (.xlsx) 导出** — 带格式的电子表格 — *Formatted Excel export with all fields*
-- 数据一键清空 — *One-tap clear all data*
-- 备份数据仅存储在设备本地，不上传任何服务器 — *Data never leaves your device*
+### 馃捑 鏁版嵁绠＄悊 / Data Management
+- 鍏ㄩ儴鏁版嵁鏈湴瀛樺偍锛圛ndexedDB锛夛紝**闆剁綉缁滀緷璧?* 鈥?*100% local storage, zero network*
+- **Excel (.xlsx) 瀵煎嚭** 鈥?甯︽牸寮忕殑鐢靛瓙琛ㄦ牸 鈥?*Formatted Excel export with all fields*
+- 鏁版嵁涓€閿竻绌?鈥?*One-tap clear all data*
+- 澶囦唤鏁版嵁浠呭瓨鍌ㄥ湪璁惧鏈湴锛屼笉涓婁紶浠讳綍鏈嶅姟鍣?鈥?*Data never leaves your device*
 
 ---
 
-## 🏗 技术栈 / Tech Stack
+## 馃彈 鎶€鏈爤 / Tech Stack
 
-| Layer / 层级 | Technology / 技术 |
+| Layer / 灞傜骇 | Technology / 鎶€鏈?|
 |-------------|-------------------|
-| Frontend Framework / 前端框架 | React 19 |
-| Build Tool / 构建工具 | Vite 8 |
-| CSS Framework / 样式方案 | Tailwind CSS 4 |
-| Charts / 图表库 | Recharts |
-| Local Storage / 本地存储 | IndexedDB (idb) |
-| Excel Export / Excel 导出 | SheetJS (xlsx) |
-| CSV Import / CSV 导入 | PapaParse |
-| Icons / 图标库 | Lucide React |
-| Mobile Wrapper / 移动端封装 | Capacitor 8 |
-| Android Native / Android 原生 | AccessibilityService + BroadcastReceiver |
+| Frontend Framework / 鍓嶇妗嗘灦 | React 19 |
+| Build Tool / 鏋勫缓宸ュ叿 | Vite 8 |
+| CSS Framework / 鏍峰紡鏂规 | Tailwind CSS 4 |
+| Charts / 鍥捐〃搴?| Recharts |
+| Local Storage / 鏈湴瀛樺偍 | IndexedDB (idb) |
+| Excel Export / Excel 瀵煎嚭 | SheetJS (xlsx) |
+| CSV Import / CSV 瀵煎叆 | PapaParse |
+| Icons / 鍥炬爣搴?| Lucide React |
+| Mobile Wrapper / 绉诲姩绔皝瑁?| Capacitor 8 |
+| Android Native / Android 鍘熺敓 | AccessibilityService + BroadcastReceiver |
 
 ---
 
-## 🚀 快速开始 / Quick Start
+## 馃殌 蹇€熷紑濮?/ Quick Start
 
-### 环境要求 / Prerequisites
+### 鐜瑕佹眰 / Prerequisites
 
-- **Node.js** ≥ 18
-- **JDK 17+**（仅 Android 构建需要 / Android build only）
-- **Android Studio**（仅 Android 构建需要 / Android build only）
-
-### Web 开发 / Web Dev
+- **Node.js** 鈮?18
+- **JDK 17+**锛堜粎 Android 鏋勫缓闇€瑕?/ Android build only锛?- **Android Studio**锛堜粎 Android 鏋勫缓闇€瑕?/ Android build only锛?
+### Web 寮€鍙?/ Web Dev
 
 ```bash
-# 安装依赖 / Install dependencies
+# 瀹夎渚濊禆 / Install dependencies
 npm install
 
-# 启动开发服务器 / Start dev server
+# 鍚姩寮€鍙戞湇鍔″櫒 / Start dev server
 npm run dev
 
-# 构建生产版本 / Build for production
+# 鏋勫缓鐢熶骇鐗堟湰 / Build for production
 npm run build
 ```
 
-### Android 构建 / Android Build
+### Android 鏋勫缓 / Android Build
 
 ```bash
-# 方式一 / Option 1：一键构建 / One-shot build
+# 鏂瑰紡涓€ / Option 1锛氫竴閿瀯寤?/ One-shot build
 scripts\build-apk.bat
 
-# 方式二 / Option 2：手动构建 / Manual build
+# 鏂瑰紡浜?/ Option 2锛氭墜鍔ㄦ瀯寤?/ Manual build
 npm run build
 npx cap sync android
 cd android && gradlew assembleDebug
 ```
 
-构建产物 / Output：`影记-StealthLedger-vX.Y.Z.apk`
+鏋勫缓浜х墿 / Output锛歚褰辫-StealthLedger-vX.Y.Z.apk`
 
-### 首次使用 / First Use
+### 棣栨浣跨敤 / First Use
 
-1. 安装 APK 到手机 / *Install APK on your phone*
-2. 前往 **设置 → 无障碍 → 已安装的服务**，开启「影记」/ *Settings → Accessibility → Installed apps → Enable "影记"*
-3. 开启通知监听权限和电池优化豁免 / *Enable notification listener & battery optimization exemption*
-4. 此后使用支付宝 / 微信付款，金额将自动记录 ✅ / *Use Alipay or WeChat Pay — transactions logged automatically*
+1. 瀹夎 APK 鍒版墜鏈?/ *Install APK on your phone*
+2. 鍓嶅線 **璁剧疆 鈫?鏃犻殰纰?鈫?宸插畨瑁呯殑鏈嶅姟**锛屽紑鍚€屽奖璁般€? *Settings 鈫?Accessibility 鈫?Installed apps 鈫?Enable "褰辫"*
+3. 寮€鍚€氱煡鐩戝惉鏉冮檺鍜岀數姹犱紭鍖栬眮鍏?/ *Enable notification listener & battery optimization exemption*
+4. 姝ゅ悗浣跨敤鏀粯瀹?/ 寰俊浠樻锛岄噾棰濆皢鑷姩璁板綍 鉁?/ *Use Alipay or WeChat Pay 鈥?transactions logged automatically*
 
 ---
 
-## 📂 项目结构 / Project Structure
+## 馃搨 椤圭洰缁撴瀯 / Project Structure
 
 ```
 StealthLedger/
-├── src/                              # React 前端源码 / React frontend
-│   ├── constants/                    # 常量配置 / Constants
-│   │   └── categories.js             # 商户名 → 消费分类映射 / Merchant → category
-│   ├── services/                     # 服务层 / Services (DB, native bridge)
-│   │   ├── db.js                     # IndexedDB 封装 / IndexedDB wrapper
-│   │   └── autoBilling.ts            # Capacitor 原生插件桥接 / Native plugin bridge
-│   ├── components/                   # UI 组件 / UI Components
-│   │   ├── Layout.jsx                # 布局（侧边栏 + 顶栏）/ Sidebar + top bar
-│   │   ├── Dashboard.jsx             # 仪表板（统计卡片 + 图表）/ Stats & charts
-│   │   ├── TransactionList.jsx       # 交易列表（搜索/筛选/批量操作）/ List view
-│   │   ├── TransactionForm.jsx       # 添加/编辑表单（含平台选择）/ Add/Edit form
-│   │   ├── CategoryManager.jsx       # 分类管理（增删改）/ Category CRUD
-│   │   ├── BudgetTracker.jsx         # 预算管理 / Budget management
-│   │   ├── ImportModal.jsx           # CSV 账单导入 / CSV import
-│   │   └── Settings.jsx              # 设置（服务状态/数据管理）/ Settings
-│   ├── hooks/                        # React Hooks
-│   │   └── useData.js                # 数据层桥接 / Data layer bridge
-│   ├── utils/                        # 工具库 / Utilities
-│   │   └── parser.js                 # 支付文本解析 + CSV 解析 / Text & CSV parser
-│   ├── App.jsx                       # 主应用入口 / App entry
-│   ├── index.css                     # Tailwind CSS + 全局样式 / Global styles
-│   └── main.jsx                      # Vite 入口 / Vite entry
-├── android/                          # Android 原生模块 / Android native
-│   └── app/src/main/
-│       ├── AndroidManifest.xml        # 权限与组件注册 / Permissions & components
-│       └── java/com/autobilling/
-│           ├── app/MainActivity.java  # 主 Activity
-│           ├── plugin/               # Capacitor 原生插件 / Native plugin
-│           │   └── AutoBillingPlugin.java
-│           ├── service/              # 后台服务 / Background services
-│           │   ├── BillingAccessibilityService.java  # 无障碍记账 / Auto-capture
-│           │   ├── BillingForegroundService.java     # 前台保活 / Keep-alive
-│           │   ├── BillingNotificationListener.java  # 通知栏监听 / Notification
-│           │   └── ClipboardMonitor.java            # 剪贴板监听 / Clipboard
-│           └── receiver/             # 广播接收器 / Broadcast receivers
-│               ├── BootReceiver.java          # 开机自启 / Boot start
-│               ├── KeepAliveReceiver.java     # 定时保活 / Periodic keep-alive
-│               ├── ServiceRestarter.java      # JobScheduler 重启 / Restart
-│               └── TransactionReceiver.java   # 交易数据接收 / Transaction data
-├── public/                           # 静态资源 / Static assets
-├── scripts/                          # 构建脚本 / Build scripts
-│   └── build-apk.bat                 # 一键构建 APK / One-shot APK build
-├── release/                          # 构建产物 / Release APKs
-│   ├── 影记-StealthLedger-v1.0.1.apk
-│   └── 影记-StealthLedger-v1.0.2.apk
-├── index.html                        # HTML 入口 / HTML entry
-├── vite.config.js                    # Vite 配置 / Vite config
-├── capacitor.config.json             # Capacitor 配置 / Capacitor config
-├── package.json                      # 依赖与脚本 / Dependencies & scripts
-├── eslint.config.js                  # ESLint 配置 / ESLint config
-├── .gitignore                        # Git 忽略规则 / Git ignore
-├── LICENSE                           # MIT 协议 / MIT License
-└── README.md                         # 项目说明 / You are here
+鈹溾攢鈹€ src/                              # React 鍓嶇婧愮爜 / React frontend
+鈹?  鈹溾攢鈹€ constants/                    # 甯搁噺閰嶇疆 / Constants
+鈹?  鈹?  鈹斺攢鈹€ categories.js             # 鍟嗘埛鍚?鈫?娑堣垂鍒嗙被鏄犲皠 / Merchant 鈫?category
+鈹?  鈹溾攢鈹€ services/                     # 鏈嶅姟灞?/ Services (DB, native bridge)
+鈹?  鈹?  鈹溾攢鈹€ db.js                     # IndexedDB 灏佽 / IndexedDB wrapper
+鈹?  鈹?  鈹斺攢鈹€ autoBilling.ts            # Capacitor 鍘熺敓鎻掍欢妗ユ帴 / Native plugin bridge
+鈹?  鈹溾攢鈹€ components/                   # UI 缁勪欢 / UI Components
+鈹?  鈹?  鈹溾攢鈹€ Layout.jsx                # 甯冨眬锛堜晶杈规爮 + 椤舵爮锛? Sidebar + top bar
+鈹?  鈹?  鈹溾攢鈹€ Dashboard.jsx             # 浠〃鏉匡紙缁熻鍗＄墖 + 鍥捐〃锛? Stats & charts
+鈹?  鈹?  鈹溾攢鈹€ TransactionList.jsx       # 浜ゆ槗鍒楄〃锛堟悳绱?绛涢€?鎵归噺鎿嶄綔锛? List view
+鈹?  鈹?  鈹溾攢鈹€ TransactionForm.jsx       # 娣诲姞/缂栬緫琛ㄥ崟锛堝惈骞冲彴閫夋嫨锛? Add/Edit form
+鈹?  鈹?  鈹溾攢鈹€ CategoryManager.jsx       # 鍒嗙被绠＄悊锛堝鍒犳敼锛? Category CRUD
+鈹?  鈹?  鈹溾攢鈹€ BudgetTracker.jsx         # 棰勭畻绠＄悊 / Budget management
+鈹?  鈹?  鈹溾攢鈹€ ImportModal.jsx           # CSV 璐﹀崟瀵煎叆 / CSV import
+鈹?  鈹?  鈹斺攢鈹€ Settings.jsx              # 璁剧疆锛堟湇鍔＄姸鎬?鏁版嵁绠＄悊锛? Settings
+鈹?  鈹溾攢鈹€ hooks/                        # React Hooks
+鈹?  鈹?  鈹斺攢鈹€ useData.js                # 鏁版嵁灞傛ˉ鎺?/ Data layer bridge
+鈹?  鈹溾攢鈹€ utils/                        # 宸ュ叿搴?/ Utilities
+鈹?  鈹?  鈹斺攢鈹€ parser.js                 # 鏀粯鏂囨湰瑙ｆ瀽 + CSV 瑙ｆ瀽 / Text & CSV parser
+鈹?  鈹溾攢鈹€ App.jsx                       # 涓诲簲鐢ㄥ叆鍙?/ App entry
+鈹?  鈹溾攢鈹€ index.css                     # Tailwind CSS + 鍏ㄥ眬鏍峰紡 / Global styles
+鈹?  鈹斺攢鈹€ main.jsx                      # Vite 鍏ュ彛 / Vite entry
+鈹溾攢鈹€ android/                          # Android 鍘熺敓妯″潡 / Android native
+鈹?  鈹斺攢鈹€ app/src/main/
+鈹?      鈹溾攢鈹€ AndroidManifest.xml        # 鏉冮檺涓庣粍浠舵敞鍐?/ Permissions & components
+鈹?      鈹斺攢鈹€ java/com/autobilling/
+鈹?          鈹溾攢鈹€ app/MainActivity.java  # 涓?Activity
+鈹?          鈹溾攢鈹€ plugin/               # Capacitor 鍘熺敓鎻掍欢 / Native plugin
+鈹?          鈹?  鈹斺攢鈹€ AutoBillingPlugin.java
+鈹?          鈹溾攢鈹€ service/              # 鍚庡彴鏈嶅姟 / Background services
+鈹?          鈹?  鈹溾攢鈹€ BillingAccessibilityService.java  # 鏃犻殰纰嶈璐?/ Auto-capture
+鈹?          鈹?  鈹溾攢鈹€ BillingForegroundService.java     # 鍓嶅彴淇濇椿 / Keep-alive
+鈹?          鈹?  鈹溾攢鈹€ BillingNotificationListener.java  # 閫氱煡鏍忕洃鍚?/ Notification
+鈹?          鈹?  鈹斺攢鈹€ ClipboardMonitor.java            # 鍓创鏉跨洃鍚?/ Clipboard
+鈹?          鈹斺攢鈹€ receiver/             # 骞挎挱鎺ユ敹鍣?/ Broadcast receivers
+鈹?              鈹溾攢鈹€ BootReceiver.java          # 寮€鏈鸿嚜鍚?/ Boot start
+鈹?              鈹溾攢鈹€ KeepAliveReceiver.java     # 瀹氭椂淇濇椿 / Periodic keep-alive
+鈹?              鈹溾攢鈹€ ServiceRestarter.java      # JobScheduler 閲嶅惎 / Restart
+鈹?              鈹斺攢鈹€ TransactionReceiver.java   # 浜ゆ槗鏁版嵁鎺ユ敹 / Transaction data
+鈹溾攢鈹€ public/                           # 闈欐€佽祫婧?/ Static assets
+鈹溾攢鈹€ scripts/                          # 鏋勫缓鑴氭湰 / Build scripts
+鈹?  鈹斺攢鈹€ build-apk.bat                 # 涓€閿瀯寤?APK / One-shot APK build
+鈹溾攢鈹€ release/                          # 鏋勫缓浜х墿 / Release APKs
+鈹?  鈹溾攢鈹€ 褰辫-StealthLedger-v1.0.1.apk
+鈹?  鈹斺攢鈹€ 褰辫-StealthLedger-v1.0.2.apk
+鈹溾攢鈹€ index.html                        # HTML 鍏ュ彛 / HTML entry
+鈹溾攢鈹€ vite.config.js                    # Vite 閰嶇疆 / Vite config
+鈹溾攢鈹€ capacitor.config.json             # Capacitor 閰嶇疆 / Capacitor config
+鈹溾攢鈹€ package.json                      # 渚濊禆涓庤剼鏈?/ Dependencies & scripts
+鈹溾攢鈹€ eslint.config.js                  # ESLint 閰嶇疆 / ESLint config
+鈹溾攢鈹€ .gitignore                        # Git 蹇界暐瑙勫垯 / Git ignore
+鈹溾攢鈹€ LICENSE                           # MIT 鍗忚 / MIT License
+鈹斺攢鈹€ README.md                         # 椤圭洰璇存槑 / You are here
 ```
 
 ---
 
-## 🔒 隐私说明 / Privacy
+## 馃敀 闅愮璇存槑 / Privacy
 
-| Item / 项目 | Description / 说明 |
+| Item / 椤圭洰 | Description / 璇存槑 |
 |------------|-------------------|
-| 数据存储 / Storage | 100% 本地存储，无服务器上传 — *100% local, no server upload* |
-| 无障碍服务 / Accessibility | **仅**在支付成功页面读取金额与商户名 — *Only reads amount & merchant on success screen* |
-| 敏感信息 / Sensitive Data | 不读取密码、验证码、聊天记录等 — *Never reads passwords, OTPs, chats* |
-| 网络请求 / Network | 不发起任何网络请求 — *Zero network requests* |
-| 开源透明 / Transparency | 全部代码可审查 — *Fully open-source & auditable* |
+| 鏁版嵁瀛樺偍 / Storage | 100% 鏈湴瀛樺偍锛屾棤鏈嶅姟鍣ㄤ笂浼?鈥?*100% local, no server upload* |
+| 鏃犻殰纰嶆湇鍔?/ Accessibility | **浠?*鍦ㄦ敮浠樻垚鍔熼〉闈㈣鍙栭噾棰濅笌鍟嗘埛鍚?鈥?*Only reads amount & merchant on success screen* |
+| 鏁忔劅淇℃伅 / Sensitive Data | 涓嶈鍙栧瘑鐮併€侀獙璇佺爜銆佽亰澶╄褰曠瓑 鈥?*Never reads passwords, OTPs, chats* |
+| 缃戠粶璇锋眰 / Network | 涓嶅彂璧蜂换浣曠綉缁滆姹?鈥?*Zero network requests* |
+| 寮€婧愰€忔槑 / Transparency | 鍏ㄩ儴浠ｇ爜鍙鏌?鈥?*Fully open-source & auditable* |
 
 ---
 
-## 🎯 自动记账流程 / How It Works
+## 馃幆 鑷姩璁拌处娴佺▼ / How It Works
 
 ```
-用户使用支付宝/微信付款
+鐢ㄦ埛浣跨敤鏀粯瀹?寰俊浠樻
 User pays with Alipay / WeChat Pay
-        ↓
-支付成功页面出现
+        鈫?鏀粯鎴愬姛椤甸潰鍑虹幇
 Payment success screen appears
-        ↓
-Android AccessibilityService 检测到页面
+        鈫?Android AccessibilityService 妫€娴嬪埌椤甸潰
 AccessibilityService detects the screen
-        ↓
-遍历无障碍节点树，提取金额 + 商户 + 时间
-Traverses node tree → extracts amount, merchant, time
-        ↓
-Broadcast → TransactionReceiver 接收
-Broadcast → received by TransactionReceiver
-        ↓
-数据写入本地 IndexedDB → WebView 自动刷新
-Data written to IndexedDB → WebView auto-refreshes
-        ↓
-用户打开 App 即可看到已自动记录的账单 ✅
-Open the app — your expenses are already logged
+        鈫?閬嶅巻鏃犻殰纰嶈妭鐐规爲锛屾彁鍙栭噾棰?+ 鍟嗘埛 + 鏃堕棿
+Traverses node tree 鈫?extracts amount, merchant, time
+        鈫?Broadcast 鈫?TransactionReceiver 鎺ユ敹
+Broadcast 鈫?received by TransactionReceiver
+        鈫?鏁版嵁鍐欏叆鏈湴 IndexedDB 鈫?WebView 鑷姩鍒锋柊
+Data written to IndexedDB 鈫?WebView auto-refreshes
+        鈫?鐢ㄦ埛鎵撳紑 App 鍗冲彲鐪嬪埌宸茶嚜鍔ㄨ褰曠殑璐﹀崟 鉁?Open the app 鈥?your expenses are already logged
 ```
 
 ---
 
-## 📝 路线图 / Roadmap
+## 馃摑 璺嚎鍥?/ Roadmap
 
-- [x] Android 无障碍服务自动捕获 / *Auto-capture via AccessibilityService*
-- [x] 通知栏解析 / *Notification parsing*
-- [x] 剪贴板监听 / *Clipboard monitoring*
-- [x] 多维度筛选与搜索 / *Multi-dimensional filtering & search*
-- [x] 批量删除 / *Batch delete*
-- [x] 数据可视化仪表板 / *Data visualization dashboard*
-- [x] 预算管理 / *Budget tracking*
-- [x] Excel 导出 / *Excel export*
-- [x] 平台标记（支付宝 / 微信）/ *Platform tagging*
-- [ ] iOS 快捷指令集成 / *iOS Shortcuts integration*
-- [ ] 数据云同步（可选，加密）/ *Optional encrypted cloud sync*
-- [ ] AI 智能分类优化 / *AI-powered categorization*
-- [ ] 周期性账单提醒 / *Recurring bill reminders*
-- [ ] 多账户支持 / *Multi-account support*
+- [x] Android 鏃犻殰纰嶆湇鍔¤嚜鍔ㄦ崟鑾?/ *Auto-capture via AccessibilityService*
+- [x] 閫氱煡鏍忚В鏋?/ *Notification parsing*
+- [x] 鍓创鏉跨洃鍚?/ *Clipboard monitoring*
+- [x] 澶氱淮搴︾瓫閫変笌鎼滅储 / *Multi-dimensional filtering & search*
+- [x] 鎵归噺鍒犻櫎 / *Batch delete*
+- [x] 鏁版嵁鍙鍖栦华琛ㄦ澘 / *Data visualization dashboard*
+- [x] 棰勭畻绠＄悊 / *Budget tracking*
+- [x] Excel 瀵煎嚭 / *Excel export*
+- [x] 骞冲彴鏍囪锛堟敮浠樺疂 / 寰俊锛? *Platform tagging*
+- [ ] iOS 蹇嵎鎸囦护闆嗘垚 / *iOS Shortcuts integration*
+- [ ] 鏁版嵁浜戝悓姝ワ紙鍙€夛紝鍔犲瘑锛? *Optional encrypted cloud sync*
+- [ ] AI 鏅鸿兘鍒嗙被浼樺寲 / *AI-powered categorization*
+- [ ] 鍛ㄦ湡鎬ц处鍗曟彁閱?/ *Recurring bill reminders*
+- [ ] 澶氳处鎴锋敮鎸?/ *Multi-account support*
 
 ---
 
-## ⭐ Star History
+## 猸?Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=y3078266584/StealthLedger&type=Date)](https://star-history.com/#y3078266584/StealthLedger&Date)
 
-## 📄 License
+## 馃搫 License
 
 MIT
 
 ---
 
-Made with ❤️ for effortless expense tracking · 让记账像呼吸一样自然
+Made with 鉂わ笍 for effortless expense tracking 路 璁╄璐﹀儚鍛煎惛涓€鏍疯嚜鐒?

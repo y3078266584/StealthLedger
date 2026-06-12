@@ -64,7 +64,7 @@ export default function Layout({ children, activePage, onNavigate }) {
           ))}
         </nav>
         <div className="p-4 border-t border-slate-100">
-          <div className="text-[10px] text-slate-400 text-center">v1.0.1 · 数据仅存储在本地</div>
+          <div className="text-[10px] text-slate-400 text-center">v1.0.3 · 数据仅存储在本地</div>
         </div>
       </aside>
 
@@ -81,7 +81,7 @@ export default function Layout({ children, activePage, onNavigate }) {
           <h2 className="text-base font-semibold text-slate-700">
             {NAV_ITEMS.find((n) => n.id === activePage)?.label || ''}
           </h2>
-          <span className="ml-auto text-[10px] text-slate-400 font-mono bg-slate-100 px-2 py-0.5 rounded-full">v1.0.1</span>
+          <span className="ml-auto text-[10px] text-slate-400 font-mono bg-slate-100 px-2 py-0.5 rounded-full">v1.0.3</span>
         </header>
 
         {/* 页面内容 */}
