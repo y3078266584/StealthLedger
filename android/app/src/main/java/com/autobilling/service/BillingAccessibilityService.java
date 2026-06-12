@@ -98,6 +98,12 @@ public class BillingAccessibilityService extends AccessibilityService {
                 info = extractTransactionInfo(rootNode, packageName);
             }
 
+            // Strategy 5: Check for refund/cancellation pages
+            if (info == null && isRefundPage(rootNode, packageName)) {
+                info = extractTransactionInfo(rootNode, packageName);
+                if (info != null) info.type = "income";
+            }
+
             if (info != null && info.amount > 0) {
                 String amountKey = packageName + ":" + info.amount;
                 long now = System.currentTimeMillis();
@@ -184,21 +190,34 @@ public class BillingAccessibilityService extends AccessibilityService {
         // Exclude history/bill list pages
         if (isHistoryPage(pageText)) return false;
 
+        // Universal payment success indicators
+        if (containsAny(pageText,
+            "\u652f\u4ed8\u6210\u529f", "\u4ed8\u6b3e\u6210\u529f",
+            "\u4ea4\u6613\u6210\u529f", "\u8ba2\u5355\u6210\u529f",
+            "\u5df2\u652f\u4ed8", "\u5df2\u4ed8\u6b3e",
+            "\u652f\u4ed8\u5b8c\u6210", "\u4ed8\u6b3e\u5b8c\u6210",
+            "\u4ed8\u6b3e\u7ed3\u679c", "\u6210\u529f\u652f\u4ed8")
+            && hasVisibleAmount(pageText)) {
+            return true;
+        }
+
         if (ALIPAY_PACKAGE.equals(packageName)) {
-            return containsAny(pageText,
-                "\u4ed8\u6b3e\u6210\u529f", "\u652f\u4ed8\u6210\u529f",
-                "\u4ea4\u6613\u6210\u529f", "\u6263\u6b3e\u6210\u529f",
-                "\u5df2\u4ed8\u6b3e", "\u5df2\u652f\u4ed8",
-                "\u8f6c\u8d26\u6210\u529f", "\u5df2\u8f6c\u51fa")
-                && containsAny(pageText, "\u00a5", "\uffe5");
+            // 完成 button + amount (Alipay success often shows just 完成)
+            if (containsAny(pageText, "\u5b8c\u6210") && hasVisibleAmount(pageText)) return true;
+            // Payment receipt / detail page
+            if (containsAny(pageText, "\u4ea4\u6613\u8be6\u60c5", "\u4ed8\u6b3e\u8be6\u60c5",
+                "\u8ba2\u5355\u8be6\u60c5") && hasVisibleAmount(pageText)) return true;
+            // Any Alipay page with ¥ amount + payment context
+            if (hasVisibleAmount(pageText) && containsAny(pageText,
+                "\u652f\u4ed8\u5b9d", "\u4ed8\u6b3e", "\u6263\u6b3e")) return true;
         }
 
         if (WECHAT_PACKAGE.equals(packageName)) {
-            return containsAny(pageText,
-                "\u652f\u4ed8\u6210\u529f", "\u4ed8\u6b3e\u6210\u529f",
-                "\u5df2\u652f\u4ed8", "\u5df2\u4ed8\u6b3e",
-                "\u8f6c\u8d26\u6210\u529f", "\u53d1\u9001\u7ea2\u5305")
-                && containsAny(pageText, "\u00a5", "\uffe5");
+            // Payment receipt / detail
+            if (containsAny(pageText, "\u4ed8\u6b3e\u8be6\u60c5", "\u4ea4\u6613\u8be6\u60c5",
+                "\u5fae\u4fe1\u652f\u4ed8") && hasVisibleAmount(pageText)) return true;
+            // Any WeChat page with ¥ amount
+            if (hasVisibleAmount(pageText) && containsAny(pageText, "\u5fae\u4fe1")) return true;
         }
 
         if (UNIONPAY_PACKAGE.equals(packageName)) {
@@ -290,6 +309,14 @@ public class BillingAccessibilityService extends AccessibilityService {
         }
 
         return false;
+    }
+
+    private boolean isRefundPage(AccessibilityNodeInfo root, String packageName) {
+        String pageText = getAllText(root);
+        if (pageText.isEmpty()) return false;
+        return containsAny(pageText, "\u9000\u6b3e\u6210\u529f", "\u5df2\u9000\u6b3e",
+            "\u9000\u6b3e\u5230\u8d26", "\u53d6\u6d88\u8ba2\u5355", "\u5df2\u53d6\u6d88",
+            "\u9000\u6b3e\u5904\u7406", "\u9000\u6b3e\u8be6\u60c5");
     }
 
     private boolean isHistoryPage(String pageText) {
@@ -397,6 +424,7 @@ public class BillingAccessibilityService extends AccessibilityService {
         bundle.putString("date", info.date);
         bundle.putString("time", info.time);
         bundle.putString("platform", info.platform);
+        bundle.putString("type", info.type);
         bundle.putString("source", "accessibility");
         intent.putExtra(EXTRA_TRANSACTION_DATA, bundle);
         sendBroadcast(intent);
@@ -409,5 +437,6 @@ public class BillingAccessibilityService extends AccessibilityService {
         String time = "";
         String platform = "";
         String scenario = "";
+        String type = "expense";
     }
 }

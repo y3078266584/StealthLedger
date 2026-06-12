@@ -39,6 +39,7 @@ public class TransactionReceiver extends BroadcastReceiver {
         String time = data.getString("time", "");
         String platform = data.getString("platform", "");
         String source = data.getString("source", "");
+        String type = data.getString("type", "expense");
 
         if (amount <= 0) return;
 
@@ -133,7 +134,7 @@ public class TransactionReceiver extends BroadcastReceiver {
             tx.put("date", date);
             tx.put("time", time);
             tx.put("platform", platform);
-            tx.put("type", "expense");
+            tx.put("type", type);
             tx.put("source", source != null && !source.isEmpty() ? source : "auto");
             tx.put("category", "other_expense");
             tx.put("note", "");

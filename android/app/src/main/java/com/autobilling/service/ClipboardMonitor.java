@@ -119,6 +119,21 @@ public class ClipboardMonitor {
         TransactionInfo info = new TransactionInfo();
         info.platform = guessPlatform(text);
 
+        // Skip promotional clipboard content
+        if (containsAny(text, "\u9001\u4f60", "\u8d60\u9001", "\u4f18\u60e0\u5238",
+            "\u514d\u8d39", "\u798f\u5229", "\u8fd4\u73b0", "\u7b7e\u5230",
+            "\u62bd\u5956", "\u5e7f\u544a", "\u63a8\u8350")) {
+            Log.d(TAG, "Skipping ad clipboard: " + text);
+            return null;
+        }
+
+        // Detect refund/cancellation
+        if (containsAny(text, "\u9000\u6b3e", "\u5df2\u9000\u6b3e",
+            "\u53d6\u6d88\u8ba2\u5355", "\u5df2\u53d6\u6d88",
+            "\u6536\u5230\u9000\u6b3e")) {
+            info.type = "income";
+        }
+
         Matcher amountMatcher = AMOUNT_PATTERN.matcher(text);
         if (amountMatcher.find()) {
             for (int i = 1; i <= amountMatcher.groupCount(); i++) {
@@ -175,9 +190,15 @@ public class ClipboardMonitor {
         bundle.putString("date", info.date);
         bundle.putString("time", info.time);
         bundle.putString("platform", info.platform);
+        bundle.putString("type", info.type);
         bundle.putString("source", "clipboard");
         intent.putExtra("transaction_data", bundle);
         context.sendBroadcast(intent);
+    }
+
+    private boolean containsAny(String text, String... keywords) {
+        for (String kw : keywords) { if (text.contains(kw)) return true; }
+        return false;
     }
 
     private static class TransactionInfo {
@@ -186,5 +207,6 @@ public class ClipboardMonitor {
         String date = "";
         String time = "";
         String platform = "";
+        String type = "expense";
     }
 }

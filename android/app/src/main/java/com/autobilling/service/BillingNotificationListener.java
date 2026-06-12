@@ -113,7 +113,7 @@ public class BillingNotificationListener extends NotificationListenerService {
 
         // Skip notifications that look like history/bill summaries
         if (containsAny(text, "\u8d26\u5355", "\u4ea4\u6613\u8bb0\u5f55",
-            "\u6708\u8d26\u5355", "\u660e\u7ec6", "\u6708\u652f\u51fa",
+            "\u6708\u8d26\u5355", "\u660e\u7ec6", \n            "\u9001\u4f60", "\u8d60\u9001", "\u4f18\u60e0", "\u514d\u8d39", \n            "\u798f\u5229", "\u8fd4\u73b0", "\u7b7e\u5230", "\u79ef\u5206", "\u6708\u652f\u51fa",
             "\u6708\u6536\u5165", "\u5168\u90e8\u8d26\u5355")) {
             return null;
         }
@@ -124,7 +124,7 @@ public class BillingNotificationListener extends NotificationListenerService {
             "\u7ea2\u5305", "\u5230\u8d26", "\u5df2\u6536\u5230",
             "\u5546\u6237\u626b\u7801", "\u5411\u4f60\u4ed8\u6b3e",
             "\u6536\u5230\u8f6c\u8d26", "\u5206\u671f", "\u82b1\u5457",
-            "\u4fe1\u7528\u5361\u8fd8\u6b3e")) {
+            "\u4fe1\u7528\u5361\u8fd8\u6b3e", \n            "\u9000\u6b3e", "\u53d6\u6d88\u8ba2\u5355", "\u5df2\u53d6\u6d88")) {
             return null;
         }
 
@@ -146,6 +146,28 @@ public class BillingNotificationListener extends NotificationListenerService {
         // Reject suspiciously large amounts
         if (info.amount > 99999) return null;
 
+        // Skip tiny amounts likely from leaked promos
+        if (info.amount < 0.5 && !containsAny(text, "支付", "付款", "扣款",
+            "消费", "转账", "商户扫码")) {
+            return null;
+        }
+
+        // Detect refund/cancellation → set as income
+        boolean isRefund = containsAny(text, "退款", "已退款",
+            "取消订单", "已取消", "退货",
+            "收到退款", "退回");
+        if (isRefund) {
+            Log.d(TAG, "Refund: " + text);
+            info.type = "income";
+        }
+
+        // Detect incoming money (non-refund)
+        if (!isRefund && containsAny(text, "到账", "已收到",
+            "收到转账", "收款")) {
+            info.type = "income";
+        }
+
+
         Matcher merchantMatcher = MERCHANT_PATTERN.matcher(text);
         if (merchantMatcher.find()) {
             for (int i = 1; i <= merchantMatcher.groupCount(); i++) {
@@ -161,7 +183,7 @@ public class BillingNotificationListener extends NotificationListenerService {
             info.merchant = guessMerchantFromTitle(text);
         }
         if (info.merchant.isEmpty()) {
-            info.merchant = "unknown";
+            info.merchant = isRefund ? "退款" : "unknown";
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -204,6 +226,7 @@ public class BillingNotificationListener extends NotificationListenerService {
         bundle.putString("date", info.date);
         bundle.putString("time", info.time);
         bundle.putString("platform", info.platform);
+        bundle.putString("type", info.type);
         bundle.putString("source", "notification");
         intent.putExtra("transaction_data", bundle);
         sendBroadcast(intent);
@@ -215,5 +238,6 @@ public class BillingNotificationListener extends NotificationListenerService {
         String date = "";
         String time = "";
         String platform = "";
+        String type = "expense";
     }
 }
