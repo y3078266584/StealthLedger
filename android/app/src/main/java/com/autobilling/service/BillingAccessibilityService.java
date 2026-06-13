@@ -66,11 +66,10 @@ public class BillingAccessibilityService extends AccessibilityService {
     public void onAccessibilityEvent(AccessibilityEvent event) {
         String packageName = event.getPackageName() != null ? event.getPackageName().toString() : "";
 
-        if (!isPaymentApp(packageName)) return;
-
         int eventType = event.getEventType();
-        if (eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED
-            && eventType != AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED) {
+
+        // Only analyze on window state changes (new screen appears)
+        if (eventType != AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
             return;
         }
 
@@ -79,31 +78,58 @@ public class BillingAccessibilityService extends AccessibilityService {
 
         try {
             TransactionInfo info = null;
+            String pageText = getAllText(rootNode).toLowerCase(Locale.getDefault());
 
-            // Strategy 1: Check for payment success pages (existing)
-            if (isPaymentSuccessPage(rootNode, packageName)) {
+            // UNIVERSAL DETECTION: any screen with ¥/￥ + payment context
+            // This catches payment screens from ANY app, not just whitelisted ones
+            boolean hasYuanSymbol = pageText.contains("\u00a5") || pageText.contains("\uffe5");
+            boolean hasPaymentKeyword = containsAny(pageText,
+                "\u652f\u4ed8", "\u4ed8\u6b3e", "\u6263\u6b3e",
+                "\u6d88\u8d39", "\u8f6c\u8d26", "\u5546\u6237\u626b\u7801",
+                "\u6210\u529f", "\u5df2\u652f\u4ed8", "\u5df2\u4ed8\u6b3e",
+                "\u5b8c\u6210", "\u4ea4\u6613\u8be6\u60c5", "\u8ba2\u5355\u8be6\u60c5",
+                "\u81ea\u52a8\u6263\u6b3e", "\u514d\u5bc6\u652f\u4ed8", "\u5df2\u6263\u6b3e",
+                "\u884c\u7a0b", "\u4e58\u8f66", "\u51fa\u884c", "\u5730\u94c1",
+                "\u516c\u4ea4", "\u5148\u4e58\u540e\u4ed8",
+                "\u9000\u6b3e", "\u5df2\u9000\u6b3e", "\u53d6\u6d88");
+
+            // Exclude known non-payment screens
+            boolean isExcluded = containsAny(pageText,
+                "\u767b\u5f55", "\u6ce8\u518c", "\u8d26\u53f7",
+                "\u5bc6\u7801", "\u9a8c\u8bc1\u7801",
+                "\u4fee\u6539\u5bc6\u7801", "\u627e\u56de\u5bc6\u7801");
+
+            if (!isExcluded && hasYuanSymbol && hasPaymentKeyword) {
+                // Universal match — try extracting from ANY app
                 info = extractTransactionInfo(rootNode, packageName);
+                if (info != null && info.amount > 0) {
+                    Log.d(TAG, "Universal capture from " + packageName + ": " + info.merchant + " \u00a5" + info.amount);
+                }
             }
 
-            // Strategy 2: Check for payment confirmation/processing pages
-            if (info == null && isPaymentConfirmPage(rootNode, packageName)) {
-                info = extractTransactionInfo(rootNode, packageName);
-            }
-
-            // Strategy 3: Check for transfer pages
-            if (info == null && isTransferPage(rootNode, packageName)) {
-                info = extractTransactionInfo(rootNode, packageName);
-            }
-
-            // Strategy 4: Check for order/payment detail pages (amount visible)
-            if (info == null && isOrderDetailPage(rootNode, packageName)) {
-                info = extractTransactionInfo(rootNode, packageName);
-            }
-
-            // Strategy 5: Check for refund/cancellation pages
-            if (info == null && isRefundPage(rootNode, packageName)) {
-                info = extractTransactionInfo(rootNode, packageName);
-                if (info != null) info.type = "income";
+            // If universal detection didn't work, try specific app strategies
+            if (info == null && isPaymentApp(packageName)) {
+                // Strategy 1: Payment success pages
+                if (isPaymentSuccessPage(rootNode, packageName)) {
+                    info = extractTransactionInfo(rootNode, packageName);
+                }
+                // Strategy 2: Payment confirmation/processing pages
+                if (info == null && isPaymentConfirmPage(rootNode, packageName)) {
+                    info = extractTransactionInfo(rootNode, packageName);
+                }
+                // Strategy 3: Transfer pages
+                if (info == null && isTransferPage(rootNode, packageName)) {
+                    info = extractTransactionInfo(rootNode, packageName);
+                }
+                // Strategy 4: Order/payment detail pages
+                if (info == null && isOrderDetailPage(rootNode, packageName)) {
+                    info = extractTransactionInfo(rootNode, packageName);
+                }
+                // Strategy 5: Refund/cancellation pages
+                if (info == null && isRefundPage(rootNode, packageName)) {
+                    info = extractTransactionInfo(rootNode, packageName);
+                    if (info != null) info.type = "income";
+                }
             }
 
             if (info != null && info.amount > 0) {
@@ -421,7 +447,13 @@ public class BillingAccessibilityService extends AccessibilityService {
         if (ALIPAY_PACKAGE.equals(packageName)) return "alipay";
         if (WECHAT_PACKAGE.equals(packageName)) return "wechat";
         if (UNIONPAY_PACKAGE.equals(packageName)) return "unionpay";
-        return "unknown";
+        if (DIDI_PACKAGE.equals(packageName) || DIDI_GLOBAL_PACKAGE.equals(packageName)) return "didi";
+        // Try to guess from package name
+        if (packageName.contains("alipay") || packageName.contains("pay")) return "alipay";
+        if (packageName.contains("wechat") || packageName.contains("tencent")) return "wechat";
+        if (packageName.contains("union") || packageName.contains("bank")) return "bank";
+        if (packageName.contains("wallet") || packageName.contains("finance")) return "wallet";
+        return "auto";
     }
 
     private void broadcastTransaction(TransactionInfo info) {

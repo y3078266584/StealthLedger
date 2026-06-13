@@ -56,17 +56,13 @@ public class BillingNotificationListener extends NotificationListenerService {
         "|\u5546\u54c1[\uff1a:]\\s*(.+?)(?:\\s|$)"
     );
 
-    private String lastAmount = "";
+    private String lastDedupKey = "";
     private long lastCaptureTime = 0;
     private static final long DEBOUNCE_MS = 10000;
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
         String packageName = sbn.getPackageName();
-
-        if (!ALIPAY_PACKAGE.equals(packageName) && !WECHAT_PACKAGE.equals(packageName)) {
-            return;
-        }
 
         Bundle extras = sbn.getNotification().extras;
         String title = extras.getString("android.title", "");
@@ -76,27 +72,43 @@ public class BillingNotificationListener extends NotificationListenerService {
         if (bigTextCs != null) {
             bigText = bigTextCs.toString();
         }
-        // Read additional text fields (some notifications put content here)
         String subText = extras.getString("android.subText", "");
         String infoText = extras.getString("android.infoText", "");
         String summaryText = extras.getString("android.summaryText", "");
-        // Combine all available text
         String fullText = (title + " " + text + " " + bigText
             + " " + subText + " " + infoText + " " + summaryText).trim();
 
         if (fullText.isEmpty()) return;
 
-        Log.d(TAG, "Payment notification from " + packageName + ": " + fullText);
+        // UNIVERSAL: any notification with payment patterns from any app
+        // Quick pre-check: must have ¥/￥ amount or known payment keyword
+        boolean hasYuan = fullText.contains("\u00a5") || fullText.contains("\uffe5");
+        boolean hasPaymentKeyword = containsAny(fullText,
+            "\u652f\u4ed8", "\u4ed8\u6b3e", "\u6263\u6b3e",
+            "\u6d88\u8d39", "\u8f6c\u8d26", "\u7ea2\u5305",
+            "\u5230\u8d26", "\u5df2\u6536\u5230", "\u6536\u6b3e",
+            "\u9000\u6b3e", "\u53d6\u6d88\u8ba2\u5355",
+            "\u81ea\u52a8\u6263\u6b3e", "\u514d\u5bc6\u652f\u4ed8", "\u5df2\u6263\u6b3e",
+            "\u884c\u7a0b", "\u4e58\u8f66", "\u51fa\u884c", "\u5730\u94c1",
+            "\u516c\u4ea4", "\u5148\u4e58\u540e\u4ed8", "\u4e58\u8f66\u7801");
+
+        // Must have ¥/￥ OR payment keyword to proceed
+        if (!hasYuan && !hasPaymentKeyword) {
+            return;
+        }
+
+        Log.d(TAG, "Notification from " + packageName + ": " + fullText);
 
         TransactionInfo info = extractFromNotification(fullText, packageName);
         if (info != null && info.amount > 0) {
             long now = System.currentTimeMillis();
-            String amountKey = packageName + ":" + info.amount;
-            if (!amountKey.equals(lastAmount) || (now - lastCaptureTime) > DEBOUNCE_MS) {
-                lastAmount = amountKey;
+            String dedupKey = packageName + ":" + String.format("%.2f", info.amount) + ":" + info.merchant;
+            if (!dedupKey.equals(lastDedupKey) || (now - lastCaptureTime) > DEBOUNCE_MS) {
+                lastDedupKey = dedupKey;
                 lastCaptureTime = now;
                 broadcastTransaction(info);
-                Log.i(TAG, "Captured from notification: " + info.merchant + " \u00a5" + info.amount);
+                Log.i(TAG, "Captured from notification: [" + info.platform + "] "
+                    + info.merchant + " \u00a5" + info.amount);
             }
         }
     }
@@ -130,10 +142,11 @@ public class BillingNotificationListener extends NotificationListenerService {
             info.platform = "wechat";
         } else if (DIDI_PACKAGE.equals(packageName) || DIDI_GLOBAL_PACKAGE.equals(packageName)) {
             info.platform = "didi";
-            info.merchant = "滴滴出行";
+            if (info.merchant.isEmpty()) info.merchant = "滴滴出行";
+        } else if (packageName.contains("alipay") || packageName.contains("pay")
+            || packageName.contains("wallet") || packageName.contains("bank")) {
+            info.platform = packageName.contains("alipay") ? "alipay" : "wallet";
         } else {
-            // Try to extract from any app with payment patterns (ride-hailing, transit auto-debit, etc.)
-            // If we get here, check if it has auto-debit patterns and extract anyway
             info.platform = "auto";
         }
 

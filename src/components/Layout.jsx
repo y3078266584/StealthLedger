@@ -90,7 +90,7 @@ export default function Layout({ children, activePage, onNavigate, pageKey }) {
         {/* Footer */}
         <div className="p-4 border-t border-slate-100/80">
           <div className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400">
-            <span className="font-mono">v1.1.1</span>
+            <span className="font-mono">v1.1.2</span>
             <span className="text-slate-300">·</span>
             <span>数据仅存储在本地</span>
           </div>
@@ -112,7 +112,7 @@ export default function Layout({ children, activePage, onNavigate, pageKey }) {
             {NAV_ITEMS.find((n) => n.id === activePage)?.label || ''}
           </h2>
           <span className="ml-auto text-[10px] text-slate-400 font-mono bg-slate-100/80 px-2 py-0.5 rounded-full border border-slate-200/50">
-            v1.1.1
+            v1.1.2
           </span>
         </header>
 

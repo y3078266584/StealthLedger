@@ -5,7 +5,7 @@
 
 [![GitHub Stars](https://img.shields.io/github/stars/y3078266584/StealthLedger?style=social&label=Star)](https://github.com/y3078266584/StealthLedger)
 [![GitHub Forks](https://img.shields.io/github/forks/y3078266584/StealthLedger?style=social&label=Fork)](https://github.com/y3078266584/StealthLedger)
-[![Version](https://img.shields.io/badge/version-1.1.1-blue)](package.json)
+[![Version](https://img.shields.io/badge/version-1.1.2-blue)](package.json)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev)
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite)](https://vitejs.dev)
@@ -15,8 +15,8 @@
 
 ## 馃摝 涓嬭浇 / Download
 
-> [猬?涓嬭浇鏈€鏂扮増 v1.0.3 APK](https://github.com/y3078266584/StealthLedger/releases/download/v1.1.1/-StealthLedger-v1.1.1.apk)
-> [猬?Download latest v1.1.1 APK](https://github.com/y3078266584/StealthLedger/releases/download/v1.1.1/-StealthLedger-v1.1.1.apk)
+> [猬?涓嬭浇鏈€鏂扮増 v1.0.3 APK](https://github.com/y3078266584/StealthLedger/releases/download/v1.1.2/-StealthLedger-v1.1.2.apk)
+> [猬?Download latest v1.1.2 APK](https://github.com/y3078266584/StealthLedger/releases/download/v1.1.2/-StealthLedger-v1.1.2.apk)
 >
 > 鍘嗗彶鐗堟湰璇峰墠寰€ [Releases](https://github.com/y3078266584/StealthLedger/releases) 椤甸潰涓嬭浇銆?> For older versions, visit the [Releases](https://github.com/y3078266584/StealthLedger/releases) page.
 
@@ -159,8 +159,8 @@ StealthLedger/
 鈹溾攢鈹€ scripts/                          # 鏋勫缓鑴氭湰 / Build scripts
 鈹?  鈹斺攢鈹€ build-apk.bat                 # 涓€閿瀯寤?APK / One-shot APK build
 鈹溾攢鈹€ release/                          # 鏋勫缓浜х墿 / Release APKs
-鈹?  鈹溾攢鈹€ 褰辫-StealthLedger-v1.1.1.apk
-鈹?  鈹斺攢鈹€ 褰辫-StealthLedger-v1.1.1.apk
+鈹?  鈹溾攢鈹€ 褰辫-StealthLedger-v1.1.2.apk
+鈹?  鈹斺攢鈹€ 褰辫-StealthLedger-v1.1.2.apk
 鈹溾攢鈹€ index.html                        # HTML 鍏ュ彛 / HTML entry
 鈹溾攢鈹€ vite.config.js                    # Vite 閰嶇疆 / Vite config
 鈹溾攢鈹€ capacitor.config.json             # Capacitor 閰嶇疆 / Capacitor config
