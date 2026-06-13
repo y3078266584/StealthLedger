@@ -1,4 +1,4 @@
-﻿# Dependencies
+# Dependencies
 node_modules/
 .pnp
 .pnp.js
@@ -12,7 +12,7 @@ build/
 *.apk
 *.aab
 
-# Android
+# Android build artifacts
 android/build/
 android/.gradle/
 android/captures/
@@ -21,7 +21,6 @@ android/app/release/
 android/local.properties
 *.iml
 *.keystore
-!android/gen-keystore.bat
 
 # Environment
 .env
@@ -30,8 +29,6 @@ android/local.properties
 
 # IDE
 .vscode/
-!.vscode/extensions.json
-!.vscode/settings.json
 .idea/
 *.suo
 *.ntvs*
@@ -53,9 +50,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Patch files (debug artifacts)
-*.patch
-
 # Misc
 *.local
 *.tgz
+*.patch
