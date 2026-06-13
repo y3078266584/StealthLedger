@@ -27,6 +27,23 @@ function PlatformBadge({ platform }) {
       </span>
     );
   }
+  if (platform === "didi") {
+    return (
+      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-medium text-white shadow-sm whitespace-nowrap shrink-0"
+        style={{background: "linear-gradient(135deg, #FF8C00, #FFA500)"}}>
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="12" r="10"/></svg>
+        滴滴
+      </span>
+    );
+  }
+  if (platform === "auto") {
+    return (
+      <span className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-medium text-slate-600 bg-slate-100 border border-slate-200 shadow-sm whitespace-nowrap shrink-0"
+        style={{fontSize: "10px"}}>
+        自动
+      </span>
+    );
+  }
   return null;
 }
 

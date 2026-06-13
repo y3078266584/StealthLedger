@@ -26,6 +26,8 @@ public class BillingAccessibilityService extends AccessibilityService {
     private static final String ALIPAY_PACKAGE = "com.eg.android.AlipayGphone";
     private static final String WECHAT_PACKAGE = "com.tencent.mm";
     private static final String UNIONPAY_PACKAGE = "com.unionpay";
+    private static final String DIDI_PACKAGE = "com.sdu.didi.psnger";
+    private static final String DIDI_GLOBAL_PACKAGE = "com.didi.global.taximeter";
 
     // Broader amount pattern: catches more formats
     private static final Pattern AMOUNT_PATTERN = Pattern.compile(
@@ -180,7 +182,9 @@ public class BillingAccessibilityService extends AccessibilityService {
     private boolean isPaymentApp(String packageName) {
         return ALIPAY_PACKAGE.equals(packageName)
             || WECHAT_PACKAGE.equals(packageName)
-            || UNIONPAY_PACKAGE.equals(packageName);
+            || UNIONPAY_PACKAGE.equals(packageName)
+            || DIDI_PACKAGE.equals(packageName)
+            || DIDI_GLOBAL_PACKAGE.equals(packageName);
     }
 
     // ===== Payment success page detection (existing, improved) =====
