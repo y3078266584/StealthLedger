@@ -1,6 +1,6 @@
-# 影记 StealthLedger
+# 褰辫 StealthLedger
 
-> 自动记录支付宝/微信支付账单，无需手动输入。  
+> 鑷姩璁板綍鏀粯瀹?寰俊鏀粯璐﹀崟锛屾棤闇€鎵嬪姩杈撳叆銆? 
 > Auto-track expenses from Alipay & WeChat Pay, no manual entry needed.
 
 [![GitHub Stars](https://img.shields.io/github/stars/y3078266584/StealthLedger?style=social)](https://github.com/y3078266584/StealthLedger)
@@ -12,134 +12,132 @@
 
 ---
 
-## 下载 Download
+## 涓嬭浇 Download
 
-**最新版 Latest:** [📱 影记-StealthLedger v1.1.2 APK](https://github.com/y3078266584/StealthLedger/releases/download/v1.1.2/%E5%BD%B1%E8%AE%B0-StealthLedger-v1.1.2.apk)
+**鏈€鏂扮増 Latest:** [馃摫 褰辫-StealthLedger v1.1.2 APK](https://github.com/y3078266584/StealthLedger/releases/download/v1.1.2/-StealthLedger-v1.1.2.apk)
 
-> 📌 旧版 APK 请访问 [Releases](https://github.com/y3078266584/StealthLedger/releases) 页面下载。  
+> 馃搶 鏃х増 APK 璇疯闂?[Releases](https://github.com/y3078266584/StealthLedger/releases) 椤甸潰涓嬭浇銆? 
 > For older versions, visit the [Releases](https://github.com/y3078266584/StealthLedger/releases) page.
 
 ---
 
-## 功能 Features
+## 鍔熻兘 Features
 
-### 自动记账 / Auto Capture
+### 鑷姩璁拌处 / Auto Capture
 
-- **无障碍服务 / Accessibility Service** — 支付成功页自动检测金额和商户，静默记录  
+- **鏃犻殰纰嶆湇鍔?/ Accessibility Service** 鈥?鏀粯鎴愬姛椤佃嚜鍔ㄦ娴嬮噾棰濆拰鍟嗘埛锛岄潤榛樿褰? 
   Auto-detect amounts & merchants on payment success screens, silently log transactions.
 
-- **通知栏监听 / Notification Listener** — 解析支付宝/微信支付通知，提取交易数据  
+- **閫氱煡鏍忕洃鍚?/ Notification Listener** 鈥?瑙ｆ瀽鏀粯瀹?寰俊鏀粯閫氱煡锛屾彁鍙栦氦鏄撴暟鎹? 
   Parse Alipay & WeChat Pay notifications to extract payment data.
 
-- **剪贴板监听 / Clipboard Monitor** — Web 支付时复制支付信息即可自动识别  
+- **鍓创鏉跨洃鍚?/ Clipboard Monitor** 鈥?Web 鏀粯鏃跺鍒舵敮浠樹俊鎭嵆鍙嚜鍔ㄨ瘑鍒? 
   Copy payment info on web and it's recognized automatically.
 
-- **通用检测 / Universal Detection** — 任意 APP 的支付页面和通知均可捕获（v1.1.2+）  
+- **閫氱敤妫€娴?/ Universal Detection** 鈥?浠绘剰 APP 鐨勬敮浠橀〉闈㈠拰閫氱煡鍧囧彲鎹曡幏锛坴1.1.2+锛? 
   Any app's payment screen or notification can be captured.
 
-- **智能分类 / Smart Categorization** — 根据商户名称自动匹配分类  
+- **鏅鸿兘鍒嗙被 / Smart Categorization** 鈥?鏍规嵁鍟嗘埛鍚嶇О鑷姩鍖归厤鍒嗙被  
   Auto-match categories by merchant name.
 
-### 交易管理 / Transaction Management
+### 浜ゆ槗绠＄悊 / Transaction Management
 
-- 添加/编辑/删除 / Add, edit, delete transactions
-- 批量删除 / Batch delete multiple transactions
-- 平台标签（支付宝/微信/手动录入）/ Platform tags (Alipay / WeChat / Manual)
-- 13 种默认分类 + 自定义（图标+颜色）/ 13 default categories + custom (icon & color)
-- 多维度筛选：关键词、日期、类型、分类 / Multi-filter: keyword, date, type, category
+- 娣诲姞/缂栬緫/鍒犻櫎 / Add, edit, delete transactions
+- 鎵归噺鍒犻櫎 / Batch delete multiple transactions
+- 骞冲彴鏍囩锛堟敮浠樺疂/寰俊/鎵嬪姩褰曞叆锛? Platform tags (Alipay / WeChat / Manual)
+- 13 绉嶉粯璁ゅ垎绫?+ 鑷畾涔夛紙鍥炬爣+棰滆壊锛? 13 default categories + custom (icon & color)
+- 澶氱淮搴︾瓫閫夛細鍏抽敭璇嶃€佹棩鏈熴€佺被鍨嬨€佸垎绫?/ Multi-filter: keyword, date, type, category
 
-### 数据看板 / Data Visualization
+### 鏁版嵁鐪嬫澘 / Data Visualization
 
-- 概览卡片：今日/本月/全年 / Dashboard cards: Today / Month / Year
-- 月度每日消费柱状图 / Monthly daily expense bar chart
-- 分类占比环形图 / Category breakdown donut chart
-- 预算追踪与超支提醒 / Budget tracker with overspend warning
-- 环比变化百分比 / Period-over-period percentage change
+- 姒傝鍗＄墖锛氫粖鏃?鏈湀/鍏ㄥ勾 / Dashboard cards: Today / Month / Year
+- 鏈堝害姣忔棩娑堣垂鏌辩姸鍥?/ Monthly daily expense bar chart
+- 鍒嗙被鍗犳瘮鐜舰鍥?/ Category breakdown donut chart
+- 棰勭畻杩借釜涓庤秴鏀彁閱?/ Budget tracker with overspend warning
+- 鐜瘮鍙樺寲鐧惧垎姣?/ Period-over-period percentage change
 
-### 数据管理 / Data Management
+### 鏁版嵁绠＄悊 / Data Management
 
-- **100% 本地存储**，无需网络 / 100% local storage, zero network
-- **Excel (.xlsx) 导出**，含格式化列宽 / Formatted Excel export with all fields
-- 一键清空所有数据 / One-tap clear all data
-- CSV 导入备份 / CSV import for backup
+- **100% 鏈湴瀛樺偍**锛屾棤闇€缃戠粶 / 100% local storage, zero network
+- **Excel (.xlsx) 瀵煎嚭**锛屽惈鏍煎紡鍖栧垪瀹?/ Formatted Excel export with all fields
+- 涓€閿竻绌烘墍鏈夋暟鎹?/ One-tap clear all data
+- CSV 瀵煎叆澶囦唤 / CSV import for backup
 
 ---
 
-## 截图 Screenshots
+## 鎴浘 Screenshots
 
-| 仪表盘 Dashboard | 交易列表 Transactions | 设置 Settings |
+| 浠〃鐩?Dashboard | 浜ゆ槗鍒楄〃 Transactions | 璁剧疆 Settings |
 |---|---|---|
 | ![Dashboard](docs/screenshots/dashboard.png) | ![Transactions](docs/screenshots/transactions.png) | ![Settings](docs/screenshots/settings.png) |
 
-> 📸 *截图待添加 — Screenshots coming soon*
+> 馃摳 *鎴浘寰呮坊鍔?鈥?Screenshots coming soon*
 
 ---
 
-## 工作原理 How It Works
+## 宸ヤ綔鍘熺悊 How It Works
 
 `
-用户支付 / User pays (Alipay / WeChat)
-    ↓ 支付成功页或通知 / Payment success screen or notification
-    ↓ Android 原生服务捕获 / Native services capture
-        ├── AccessibilityService — 解析屏幕节点树 / Parse screen node tree
-        ├── NotificationListener — 解析通知字段 / Parse notification fields
-        └── ClipboardMonitor — 解析剪贴板 / Parse clipboard text
-    ↓ Broadcast → TransactionReceiver（去重 / Dedup）
-    ↓ Capacitor Plugin Bridge (AutoBillingPlugin.java)
-    ↓ WebView 每 5s 轮询 / Poll every 5s → App.jsx
-    ↓ CATEGORY_KEYWORDS 匹配分类 / Match category
-    ↓ IndexedDB 存储 / Storage → UI 自动刷新 / Auto refresh
+鐢ㄦ埛鏀粯 / User pays (Alipay / WeChat)
+    鈫?鏀粯鎴愬姛椤垫垨閫氱煡 / Payment success screen or notification
+    鈫?Android 鍘熺敓鏈嶅姟鎹曡幏 / Native services capture
+        鈹溾攢鈹€ AccessibilityService 鈥?瑙ｆ瀽灞忓箷鑺傜偣鏍?/ Parse screen node tree
+        鈹溾攢鈹€ NotificationListener 鈥?瑙ｆ瀽閫氱煡瀛楁 / Parse notification fields
+        鈹斺攢鈹€ ClipboardMonitor 鈥?瑙ｆ瀽鍓创鏉?/ Parse clipboard text
+    鈫?Broadcast 鈫?TransactionReceiver锛堝幓閲?/ Dedup锛?    鈫?Capacitor Plugin Bridge (AutoBillingPlugin.java)
+    鈫?WebView 姣?5s 杞 / Poll every 5s 鈫?App.jsx
+    鈫?CATEGORY_KEYWORDS 鍖归厤鍒嗙被 / Match category
+    鈫?IndexedDB 瀛樺偍 / Storage 鈫?UI 鑷姩鍒锋柊 / Auto refresh
 `
 
 ---
 
-## 项目结构 Project Structure
+## 椤圭洰缁撴瀯 Project Structure
 
-| 目录 / Path | 说明 / Description |
+| 鐩綍 / Path | 璇存槑 / Description |
 |---|---|
-| src/ | 前端源码 / Frontend source (React + Vite) |
-| ndroid/ | Android 原生项目 / Android native project |
-| public/ | 静态资源 / Static assets |
-| scripts/ | 构建脚本 / Build scripts |
-| docs/ | 文档 / Documentation |
+| src/ | 鍓嶇婧愮爜 / Frontend source (React + Vite) |
+| ndroid/ | Android 鍘熺敓椤圭洰 / Android native project |
+| public/ | 闈欐€佽祫婧?/ Static assets |
+| scripts/ | 鏋勫缓鑴氭湰 / Build scripts |
+| docs/ | 鏂囨。 / Documentation |
 
-详见 [docs/architecture.md](docs/architecture.md) — See [docs/architecture.md](docs/architecture.md)
+璇﹁ [docs/architecture.md](docs/architecture.md) 鈥?See [docs/architecture.md](docs/architecture.md)
 
 ---
 
-## 开发 Development
+## 寮€鍙?Development
 
 `ash
-# 安装依赖 / Install dependencies
+# 瀹夎渚濊禆 / Install dependencies
 npm install
 
-# 启动开发服务器 / Start dev server
+# 鍚姩寮€鍙戞湇鍔″櫒 / Start dev server
 npm run dev
 
-# 构建前端 / Build frontend
+# 鏋勫缓鍓嶇 / Build frontend
 npm run build
 
-# 同步到 Android / Sync to Android
+# 鍚屾鍒?Android / Sync to Android
 npx cap sync android
 
-# 构建 APK / Build APK（需 Android SDK 和 JDK 17+）
-npm run build-apk
+# 鏋勫缓 APK / Build APK锛堥渶 Android SDK 鍜?JDK 17+锛?npm run build-apk
 `
 
-> **系统 Gradle** 路径: C:\Gradle\gradle-9.5.1-bin\gradle-9.5.1\bin\gradle.bat  
-> 构建前设置 ANDROID_HOME：$env:ANDROID_HOME = "C:\Users\30782\AppData\Local\Android\Sdk"
+> **绯荤粺 Gradle** 璺緞: C:\Gradle\gradle-9.5.1-bin\gradle-9.5.1\bin\gradle.bat  
+> 鏋勫缓鍓嶈缃?ANDROID_HOME锛?env:ANDROID_HOME = "C:\Users\30782\AppData\Local\Android\Sdk"
 
 ---
 
-## 隐私 Privacy
+## 闅愮 Privacy
 
-| 项目 / Item | 说明 / Description |
+| 椤圭洰 / Item | 璇存槑 / Description |
 |---|---|
-| 存储 / Storage | 100% 本地，不上传服务器 / 100% local, no server upload |
-| 无障碍 / Accessibility | 仅读取支付成功页的金额和商户 / Only reads amount & merchant on success screen |
-| 敏感数据 / Sensitive Data | 从不读取密码、验证码、聊天记录 / Never reads passwords, OTPs, chats |
-| 网络 / Network | 零网络请求 / Zero network requests |
-| 透明 / Transparency | 完全开源可审计 / Fully open-source & auditable |
+| 瀛樺偍 / Storage | 100% 鏈湴锛屼笉涓婁紶鏈嶅姟鍣?/ 100% local, no server upload |
+| 鏃犻殰纰?/ Accessibility | 浠呰鍙栨敮浠樻垚鍔熼〉鐨勯噾棰濆拰鍟嗘埛 / Only reads amount & merchant on success screen |
+| 鏁忔劅鏁版嵁 / Sensitive Data | 浠庝笉璇诲彇瀵嗙爜銆侀獙璇佺爜銆佽亰澶╄褰?/ Never reads passwords, OTPs, chats |
+| 缃戠粶 / Network | 闆剁綉缁滆姹?/ Zero network requests |
+| 閫忔槑 / Transparency | 瀹屽叏寮€婧愬彲瀹¤ / Fully open-source & auditable |
 
 ---
 
@@ -149,23 +147,23 @@ npm run build-apk
 
 ---
 
-## 路线图 Roadmap
+## 璺嚎鍥?Roadmap
 
-- [x] 无障碍自动捕获 / Auto-capture via AccessibilityService
-- [x] 通知解析 / Notification parsing
-- [x] 剪贴板监听 / Clipboard monitoring
-- [x] 筛选与搜索 / Multi-dimensional filtering
-- [x] 批量删除 / Batch delete
-- [x] 数据可视化看板 / Data visualization dashboard
-- [x] 预算追踪 / Budget tracking
-- [x] Excel 导出 / Excel export
-- [x] 平台标签 / Platform tagging
-- [x] 通用支付检测 / Universal payment detection
-- [ ] iOS 快捷指令集成 / iOS Shortcuts integration
-- [ ] 可选加密云同步 / Optional encrypted cloud sync
-- [ ] AI 智能分类 / AI-powered categorization
-- [ ] 周期账单提醒 / Recurring bill reminders
-- [ ] 多账户支持 / Multi-account support
+- [x] 鏃犻殰纰嶈嚜鍔ㄦ崟鑾?/ Auto-capture via AccessibilityService
+- [x] 閫氱煡瑙ｆ瀽 / Notification parsing
+- [x] 鍓创鏉跨洃鍚?/ Clipboard monitoring
+- [x] 绛涢€変笌鎼滅储 / Multi-dimensional filtering
+- [x] 鎵归噺鍒犻櫎 / Batch delete
+- [x] 鏁版嵁鍙鍖栫湅鏉?/ Data visualization dashboard
+- [x] 棰勭畻杩借釜 / Budget tracking
+- [x] Excel 瀵煎嚭 / Excel export
+- [x] 骞冲彴鏍囩 / Platform tagging
+- [x] 閫氱敤鏀粯妫€娴?/ Universal payment detection
+- [ ] iOS 蹇嵎鎸囦护闆嗘垚 / iOS Shortcuts integration
+- [ ] 鍙€夊姞瀵嗕簯鍚屾 / Optional encrypted cloud sync
+- [ ] AI 鏅鸿兘鍒嗙被 / AI-powered categorization
+- [ ] 鍛ㄦ湡璐﹀崟鎻愰啋 / Recurring bill reminders
+- [ ] 澶氳处鎴锋敮鎸?/ Multi-account support
 
 ---
 
@@ -175,4 +173,4 @@ MIT
 
 ---
 
-*Made with ❤️ for effortless expense tracking — 让记账变得简单*
+*Made with 鉂わ笍 for effortless expense tracking 鈥?璁╄璐﹀彉寰楃畝鍗?
